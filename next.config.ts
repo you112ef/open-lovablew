@@ -16,9 +16,6 @@ const nextConfig: NextConfig = {
     loaderFile: './app/image-loader.js'
   },
   
-  // External packages for Cloudflare Workers compatibility  
-  serverExternalPackages: ['@e2b/code-interpreter'],
-  
   // Ensure proper static export
   distDir: '.next',
   
@@ -39,11 +36,6 @@ const nextConfig: NextConfig = {
     };
     
     return config;
-  },
-  
-  // Experimental features for better compatibility
-  experimental: {
-    esmExternals: 'loose'
   }
 };
 

@@ -530,7 +530,7 @@ Tip: I automatically detect and install npm packages from your code imports (lik
                   } else if (data.message.includes('Creating files') || data.message.includes('Applying')) {
                     setCodeApplicationState({ 
                       stage: 'applying',
-                      filesGenerated: results.filesCreated 
+                      filesGenerated: data.filesCreated || 0
                     });
                   }
                   break;
@@ -625,7 +625,12 @@ Tip: I automatically detect and install npm packages from your code imports (lik
           results: finalData.results,
           explanation: finalData.explanation,
           structure: finalData.structure,
-          message: finalData.message
+          message: finalData.message,
+          autoCompleted: finalData.autoCompleted,
+          autoCompletedComponents: finalData.autoCompletedComponents,
+          warning: finalData.warning,
+          missingImports: finalData.missingImports,
+          debug: finalData.debug
         };
         
         if (data.success) {
@@ -1011,7 +1016,7 @@ Tip: I automatically detect and install npm packages from your code imports (lik
                       // Create a map of edited files
                       const editedFiles = new Set(
                         generationProgress.files
-                          .filter(f => f.edited)
+                          .filter(f => f.completed)
                           .map(f => f.path)
                       );
                       
@@ -1024,7 +1029,7 @@ Tip: I automatically detect and install npm packages from your code imports (lik
                         if (!fileTree[dir]) fileTree[dir] = [];
                         fileTree[dir].push({
                           name: fileName,
-                          edited: file.edited || false
+                          edited: file.completed || false
                         });
                       });
                       
