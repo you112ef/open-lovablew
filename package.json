@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build && next-on-pages",
+    "build:cf": "next-on-pages",
     "start": "next start",
+    "deploy": "wrangler pages deploy .vercel/output/static --compatibility-date=2024-08-20",
+    "preview": "wrangler pages dev .vercel/output/static --compatibility-date=2024-08-20",
     "lint": "next lint",
     "test:integration": "node tests/e2b-integration.test.js",
     "test:api": "node tests/api-endpoints.test.js",
@@ -43,6 +46,8 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.14",
+    "@cloudflare/workers-types": "^4.20250820.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20",
@@ -51,6 +56,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.3",
     "tailwindcss": "^4.1.11",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.31.0"
   }
 }
