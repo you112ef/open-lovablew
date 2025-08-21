@@ -123,6 +123,9 @@ importers:
       typescript:
         specifier: ^5
         version: 5.9.2
+      vercel:
+        specifier: ^46.0.2
+        version: 46.0.2
       wrangler:
         specifier: ^4.31.0
         version: 4.32.0(@cloudflare/workers-types@4.20250821.0)
