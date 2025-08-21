@@ -1,5 +1,5 @@
-export const runtime = "edge";
 import { NextResponse } from 'next/server';
+export const runtime = "edge";
 import { parseJavaScriptFile, buildComponentTree } from '@/lib/file-parser';
 import { FileManifest, FileInfo, RouteInfo } from '@/types/file-manifest';
 import type { SandboxState } from '@/types/sandbox';

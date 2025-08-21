@@ -1,5 +1,5 @@
-export const runtime = "edge";
 import { NextRequest, NextResponse } from 'next/server';
+export const runtime = "edge";
 import type { SandboxState } from '@/types/sandbox';
 import type { ConversationState } from '@/types/conversation';
 

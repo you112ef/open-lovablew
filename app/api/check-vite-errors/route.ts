@@ -1,5 +1,5 @@
-export const runtime = "edge";
 import { NextResponse } from 'next/server';
+export const runtime = "edge";
 
 // Stub endpoint to prevent 404 errors
 // This endpoint is being called but the source is unknown
