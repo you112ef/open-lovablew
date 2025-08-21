@@ -1,38 +1,24 @@
-# Cloudflare Pages configuration for open-lovable Next.js app
-name = "open-lovable"
-compatibility_date = "2024-08-20"
+name = "open-lovable22"
+compatibility_date = "2025-01-21"
 
-[env.production]
-compatibility_date = "2024-08-20"
-
-[env.preview]
-compatibility_date = "2024-08-20"
-
-# Build configuration
 [build]
 command = "npm run build"
-cwd = "."
+output_directory = "out"
 
-# Environment variables (add your actual values in Cloudflare dashboard)
-[vars]
-# Add your environment variables here or use the Cloudflare dashboard
-# EXAMPLE:
-# NODE_ENV = "production"
+[env.production]
+name = "open-lovable22"
 
-# For sensitive variables like API keys, use the Cloudflare dashboard:
-# - GROQ_API_KEY
-# - ANTHROPIC_API_KEY  
-# - OPENAI_API_KEY
-# - E2B_API_KEY
-# - ANTHROPIC_BASE_URL
-# - OPENAI_BASE_URL
+[env.preview]
+name = "open-lovable22-preview"
 
 # Pages configuration
 [pages]
-# Compatibility flags for Next.js
-compatibility_flags = ["nodejs_compat"]
+# Enable Pages Functions if needed
+# functions_dir = "functions"
 
-# Function invocation routes (matches your API routes)
-[[pages.functions]]
-pattern = "/api/*"
-zone = "automatic"
+# Environment variables (if needed)
+# [env.production.vars]
+# API_URL = "https://api.example.com"
+
+# [env.preview.vars]
+# API_URL = "https://staging-api.example.com"

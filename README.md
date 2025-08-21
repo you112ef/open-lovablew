@@ -127,6 +127,44 @@ Deployment
 - Netlify: Use Vite or Gatsby build commands in the Netlify UI.
 - Docker: Use the `Dockerfile` included in some templates to build a container image.
 
+## 🚀 النشر على Cloudflare Pages
+
+### 📚 أدلة النشر الشاملة
+
+لقد أعددنا مجموعة شاملة من أدلة النشر لـ **Cloudflare Pages**:
+
+- **📖 [DEPLOY.md](DEPLOY.md)** - الدليل الشامل لجميع طرق النشر
+- **⚡ [QUICK-START.md](QUICK-START.md)** - البداية السريعة للنشر
+- **📋 [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md)** - قائمة التحقق النهائية
+- **📚 [DEPLOYMENT-SUMMARY.md](DEPLOYMENT-SUMMARY.md)** - ملخص جميع ملفات النشر
+
+### 🎯 النشر السريع على Cloudflare Pages
+
+#### الطريقة الأولى: النشر اليدوي (5 دقائق)
+1. اذهب إلى [Cloudflare Pages](https://dash.cloudflare.com/pages)
+2. اضغط **Create a Project** → **Connect to Git**
+3. اختر مستودع `open-lovable22`
+4. إعدادات البناء:
+   - **Framework preset**: Next.js
+   - **Build command**: `npm run build`
+   - **Build output directory**: `out`
+5. اضغط **Save and Deploy**
+
+#### الطريقة الثانية: النشر التلقائي (GitHub Actions)
+1. أضف Secrets في GitHub:
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+2. ادفع الكود: `git push origin main`
+3. GitHub Actions ينشر تلقائياً
+
+### 📁 الملفات الجاهزة للنشر
+
+جميع ملفات النشر جاهزة في المستودع:
+- ✅ `wrangler.toml` - إعدادات Cloudflare
+- ✅ `.github/workflows/cloudflare-deploy.yml` - GitHub Actions
+- ✅ `public/_headers` - تحسين الأداء
+- ✅ `public/_redirects` - التوجيه
+
 Best practices and tips
 - Audit class names. The tool preserves names but you should rename and scope them.
 - Convert inline scripts to module code. The generator extracts scripts but not complex logic.
