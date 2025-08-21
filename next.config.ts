@@ -1,23 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Configuration for Cloudflare Pages deployment
-  output: 'export',
-  trailingSlash: true,
-  
-  // Fix for Cloudflare Pages static export
-  assetPrefix: undefined,
-  basePath: '',
-  
-  // Disable image optimization for static export
+  // Disable image optimization for Cloudflare Pages
   images: {
-    unoptimized: true,
-    loader: 'custom',
-    loaderFile: './app/image-loader.js'
+    unoptimized: true
   },
   
-  // Ensure proper static export
-  distDir: '.next',
+  // External packages for Cloudflare Workers compatibility
+  experimental: {
+    serverComponentsExternalPackages: ['@e2b/code-interpreter']
+  },
   
   // Configure webpack for better compatibility
   webpack: (config: any, { dev, isServer }: any) => {
