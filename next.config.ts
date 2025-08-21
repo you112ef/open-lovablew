@@ -38,12 +38,17 @@ const nextConfig: NextConfig = {
       tls: false,
     };
     
+    // Fix for Tailwind CSS v4 compatibility
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        os: false,
+      };
+    }
+    
     return config;
-  },
-  
-  // Experimental features for better compatibility
-  experimental: {
-    esmExternals: 'loose'
   }
 };
 
