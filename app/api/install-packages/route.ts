@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 import { Sandbox } from '@e2b/code-interpreter';
+
 
 declare global {
   var activeSandbox: any;
@@ -88,8 +92,11 @@ export async function POST(request: NextRequest) {
         
         await sandboxInstance.runCode(`
 import subprocess
+
 import os
+
 import signal
+
 
 # Try to kill any existing Vite process
 try:
@@ -109,7 +116,9 @@ except:
         
         const checkResult = await sandboxInstance.runCode(`
 import os
+
 import json
+
 
 os.chdir('/home/user/app')
 
@@ -191,7 +200,9 @@ except Exception as e:
         
         const installResult = await sandboxInstance.runCode(`
 import subprocess
+
 import os
+
 
 os.chdir('/home/user/app')
 
@@ -230,6 +241,7 @@ print(f"\\nInstallation completed with code: {rc}")
 
 # Verify packages were installed
 import json
+
 with open('/home/user/app/package.json', 'r') as f:
     package_json = json.load(f)
     
@@ -295,8 +307,11 @@ print(f"\\nVerified installed packages: {installed}")
         
         await sandboxInstance.runCode(`
 import subprocess
+
 import os
+
 import time
+
 
 os.chdir('/home/user/app')
 

@@ -1,15 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 import { createGroq } from '@ai-sdk/groq';
+
 import { createAnthropic } from '@ai-sdk/anthropic';
+
 import { createOpenAI } from '@ai-sdk/openai';
+
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
+
 import { streamText } from 'ai';
+
 import type { SandboxState } from '@/types/sandbox';
+
 import { selectFilesForEdit, getFileContents, formatFilesForAI } from '@/lib/context-selector';
+
 import { executeSearchPlan, formatSearchResultsForAI, selectTargetFile } from '@/lib/file-search-executor';
+
 import { FileManifest } from '@/types/file-manifest';
+
 import type { ConversationState, ConversationMessage, ConversationEdit } from '@/types/conversation';
+
 import { appConfig } from '@/config/app.config';
+
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,

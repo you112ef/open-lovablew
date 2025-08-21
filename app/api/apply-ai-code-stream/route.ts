@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 import { Sandbox } from '@e2b/code-interpreter';
+
 import type { SandboxState } from '@/types/sandbox';
+
 import type { ConversationState } from '@/types/conversation';
+
 
 declare global {
   var conversationState: ConversationState | null;
@@ -542,6 +548,7 @@ export async function POST(request: NextRequest) {
             
             await sandboxInstance.runCode(`
 import os
+
 os.makedirs(os.path.dirname("${fullPath}"), exist_ok=True)
 with open("${fullPath}", 'w') as f:
     f.write("""${escapedContent}""")

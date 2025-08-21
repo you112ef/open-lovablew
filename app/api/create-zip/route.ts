@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 declare global {
   var activeSandbox: any;
@@ -18,8 +21,11 @@ export async function POST(request: NextRequest) {
     // Create zip file in sandbox
     const result = await global.activeSandbox.runCode(`
 import zipfile
+
 import os
+
 import json
+
 
 os.chdir('/home/user/app')
 
@@ -42,6 +48,7 @@ print(f" Created project.zip ({file_size} bytes)")
     // Read the zip file and convert to base64
     const readResult = await global.activeSandbox.runCode(`
 import base64
+
 
 with open('/tmp/project.zip', 'rb') as f:
     content = f.read()

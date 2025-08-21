@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 declare global {
   var viteErrorsCache: { errors: any[], timestamp: number } | null;

@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 declare global {
   var activeSandbox: any;
@@ -18,12 +21,19 @@ export async function POST() {
     // Kill existing Vite process and restart
     const result = await global.activeSandbox.runCode(`
 import subprocess
+
 import os
+
 import signal
+
 import time
+
 import threading
+
 import json
+
 import sys
+
 
 # Kill existing Vite process
 try:

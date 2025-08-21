@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 import { Sandbox } from '@e2b/code-interpreter';
+
 import type { SandboxState } from '@/types/sandbox';
+
 import { appConfig } from '@/config/app.config';
+
 
 // Store active sandbox globally
 declare global {
@@ -54,7 +60,9 @@ export async function POST() {
     // Write all files in a single Python script to avoid multiple executions
     const setupScript = `
 import os
+
 import json
+
 
 print('Setting up React app with Vite and Tailwind...')
 
@@ -91,6 +99,7 @@ print('✓ package.json')
 # Vite config for E2B - with allowedHosts
 vite_config = """import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+
 
 // E2B-compatible Vite configuration
 export default defineConfig({
@@ -158,8 +167,11 @@ print('✓ index.html')
 # Main.jsx
 main_jsx = """import React from 'react'
 import ReactDOM from 'react-dom/client'
+
 import App from './App.jsx'
+
 import './index.css'
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -232,7 +244,9 @@ print('\\nAll files created successfully!')
     console.log('[create-ai-sandbox] Installing dependencies...');
     await sandbox.runCode(`
 import subprocess
+
 import sys
+
 
 print('Installing npm packages...')
 result = subprocess.run(
@@ -253,8 +267,11 @@ else:
     console.log('[create-ai-sandbox] Starting Vite dev server...');
     await sandbox.runCode(`
 import subprocess
+
 import os
+
 import time
+
 
 os.chdir('/home/user/app')
 
@@ -283,7 +300,9 @@ print('Waiting for server to be ready...')
     // Force Tailwind CSS to rebuild by touching the CSS file
     await sandbox.runCode(`
 import os
+
 import time
+
 
 # Touch the CSS file to trigger rebuild
 css_file = '/home/user/app/src/index.css'

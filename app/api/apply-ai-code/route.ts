@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 import type { SandboxState } from '@/types/sandbox';
+
 import type { ConversationState } from '@/types/conversation';
+
 
 declare global {
   var conversationState: ConversationState | null;
@@ -502,6 +507,7 @@ print(f"Auto-generated: {file_path}")
       try {
         await global.activeSandbox.runCode(`
 import subprocess
+
 os.chdir('/home/user/app')
 result = subprocess.run(${JSON.stringify(cmd.split(' '))}, capture_output=True, text=True)
 print(f"Executed: ${cmd}")

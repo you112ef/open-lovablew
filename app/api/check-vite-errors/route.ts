@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 // Stub endpoint to prevent 404 errors
 // This endpoint is being called but the source is unknown

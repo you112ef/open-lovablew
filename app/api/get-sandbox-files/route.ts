@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 import { parseJavaScriptFile, buildComponentTree } from '@/lib/file-parser';
+
 import { FileManifest, FileInfo, RouteInfo } from '@/types/file-manifest';
+
 import type { SandboxState } from '@/types/sandbox';
+
 
 declare global {
   var activeSandbox: any;
@@ -21,7 +27,9 @@ export async function GET() {
     // Get all React/JS/CSS files
     const result = await global.activeSandbox.runCode(`
 import os
+
 import json
+
 
 def get_files_content(directory='/home/user/app', extensions=['.jsx', '.js', '.tsx', '.ts', '.css', '.json']):
     files_content = {}

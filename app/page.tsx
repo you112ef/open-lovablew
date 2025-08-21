@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { appConfig } from '@/config/app.config';
 import { Button } from '@/components/ui/button';
@@ -42,7 +42,8 @@ interface ChatMessage {
   };
 }
 
-export default function AISandboxPage() {
+function AISandboxPageContent({ initialModel, sandboxId }: { initialModel: string; sandboxId: string | null }) {
+  const router = useRouter();
   const [sandboxData, setSandboxData] = useState<SandboxData | null>(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ text: 'Not connected', active: false });
@@ -58,12 +59,7 @@ export default function AISandboxPage() {
   ]);
   const [aiChatInput, setAiChatInput] = useState('');
   const [aiEnabled] = useState(true);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [aiModel, setAiModel] = useState(() => {
-    const modelParam = searchParams.get('model');
-    return appConfig.ai.availableModels.includes(modelParam || '') ? modelParam! : appConfig.ai.defaultModel;
-  });
+  const [aiModel, setAiModel] = useState(initialModel);
   const [urlOverlayVisible, setUrlOverlayVisible] = useState(false);
   const [urlInput, setUrlInput] = useState('');
   const [urlStatus, setUrlStatus] = useState<string[]>([]);
@@ -156,13 +152,12 @@ export default function AISandboxPage() {
       
       if (!isMounted) return;
 
-      // Check if sandbox ID is in URL
-      const sandboxIdParam = searchParams.get('sandbox');
+      // Check if sandbox ID was provided
       
       setLoading(true);
       try {
-        if (sandboxIdParam) {
-          console.log('[home] Attempting to restore sandbox:', sandboxIdParam);
+        if (sandboxId) {
+          console.log('[home] Attempting to restore sandbox:', sandboxId);
           // For now, just create a new sandbox - you could enhance this to actually restore
           // the specific sandbox if your backend supports it
           await createSandbox(true);
@@ -395,7 +390,7 @@ export default function AISandboxPage() {
         log(`URL: ${data.url}`);
         
         // Update URL with sandbox ID
-        const newParams = new URLSearchParams(searchParams.toString());
+        const newParams = new URLSearchParams();
         newParams.set('sandbox', data.sandboxId);
         newParams.set('model', aiModel);
         router.push(`/?${newParams.toString()}`, { scroll: false });
@@ -1650,7 +1645,7 @@ Tip: I automatically detect and install npm packages from your code imports (lik
                               type: fileType,
                               completed: true,
                               edited: true
-                            },
+                            } as any,
                             ...updatedState.files.slice(existingFileIndex + 1)
                           ];
                         } else {
@@ -1661,7 +1656,7 @@ Tip: I automatically detect and install npm packages from your code imports (lik
                             type: fileType,
                             completed: true,
                             edited: false
-                          }];
+                          } as any];
                         }
                         
                         // Only show file status if not in edit mode
@@ -2587,7 +2582,7 @@ Focus on the key sections and content, making it clean and modern.`;
                               type: fileType,
                               completed: true,
                               edited: true
-                            },
+                            } as any,
                             ...updatedState.files.slice(existingFileIndex + 1)
                           ];
                         } else {
@@ -2598,7 +2593,7 @@ Focus on the key sections and content, making it clean and modern.`;
                             type: fileType,
                             completed: true,
                             edited: false
-                          }];
+                          } as any];
                         }
                         
                         // Only show file status if not in edit mode
@@ -2977,7 +2972,7 @@ Focus on the key sections and content, making it clean and modern.`;
                   onChange={(e) => {
                     const newModel = e.target.value;
                     setAiModel(newModel);
-                    const params = new URLSearchParams(searchParams);
+                    const params = new URLSearchParams();
                     params.set('model', newModel);
                     if (sandboxData?.sandboxId) {
                       params.set('sandbox', sandboxData.sandboxId);
@@ -2991,7 +2986,7 @@ Focus on the key sections and content, making it clean and modern.`;
                 >
                   {appConfig.ai.availableModels.map(model => (
                     <option key={model} value={model}>
-                      {appConfig.ai.modelDisplayNames[model] || model}
+                      {(appConfig.ai.modelDisplayNames as any)[model] || model}
                     </option>
                   ))}
                 </select>
@@ -3016,7 +3011,7 @@ Focus on the key sections and content, making it clean and modern.`;
             onChange={(e) => {
               const newModel = e.target.value;
               setAiModel(newModel);
-              const params = new URLSearchParams(searchParams);
+              const params = new URLSearchParams();
               params.set('model', newModel);
               if (sandboxData?.sandboxId) {
                 params.set('sandbox', sandboxData.sandboxId);
@@ -3027,7 +3022,7 @@ Focus on the key sections and content, making it clean and modern.`;
           >
             {appConfig.ai.availableModels.map(model => (
               <option key={model} value={model}>
-                {appConfig.ai.modelDisplayNames[model] || model}
+                {(appConfig.ai.modelDisplayNames as any)[model] || model}
               </option>
             ))}
           </select>
@@ -3425,5 +3420,26 @@ Focus on the key sections and content, making it clean and modern.`;
 
 
     </div>
+  );
+}
+
+function AISandboxPageWrapper() {
+  const searchParams = useSearchParams();
+  
+  const initialModel = (() => {
+    const modelParam = searchParams.get('model');
+    return appConfig.ai.availableModels.includes(modelParam || '') ? modelParam! : appConfig.ai.defaultModel;
+  })();
+  
+  const sandboxId = searchParams.get('sandbox');
+  
+  return <AISandboxPageContent initialModel={initialModel} sandboxId={sandboxId} />;
+}
+
+export default function AISandboxPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <AISandboxPageWrapper />
+    </Suspense>
   );
 }

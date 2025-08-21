@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 import { Sandbox } from '@e2b/code-interpreter';
+
 
 // Get active sandbox from global state (in production, use a proper state management solution)
 declare global {
@@ -28,7 +32,9 @@ export async function POST(request: NextRequest) {
     
     const result = await global.activeSandbox.runCode(`
 import subprocess
+
 import os
+
 
 os.chdir('/home/user/app')
 result = subprocess.run(${JSON.stringify(command.split(' '))}, 

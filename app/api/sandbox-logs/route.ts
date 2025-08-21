@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 declare global {
   var activeSandbox: any;
@@ -18,7 +21,9 @@ export async function GET(request: NextRequest) {
     // Get the last N lines of the Vite dev server output
     const result = await global.activeSandbox.runCode(`
 import subprocess
+
 import os
+
 
 # Try to get the Vite process output
 try:

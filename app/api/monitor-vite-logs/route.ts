@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 declare global {
   var activeSandbox: any;
@@ -18,8 +21,11 @@ export async function GET() {
     // Check both the error file and recent logs
     const result = await global.activeSandbox.runCode(`
 import json
+
 import subprocess
+
 import re
+
 
 errors = []
 

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { ConversationState } from '@/types/conversation';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 declare global {
   var conversationState: ConversationState | null;

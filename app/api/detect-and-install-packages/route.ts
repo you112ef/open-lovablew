@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 declare global {
   var activeSandbox: any;
@@ -103,7 +106,9 @@ export async function POST(request: NextRequest) {
     // Check which packages are already installed
     const checkResult = await global.activeSandbox.runCode(`
 import os
+
 import json
+
 
 installed = []
 missing = []
@@ -147,8 +152,11 @@ print(json.dumps(result))
     
     const installResult = await global.activeSandbox.runCode(`
 import subprocess
+
 import os
+
 import json
+
 
 os.chdir('/home/user/app')
 packages_to_install = ${JSON.stringify(status.missing)}

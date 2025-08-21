@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 // Function to sanitize smart quotes and other problematic characters
 function sanitizeQuotes(text: string): string {
