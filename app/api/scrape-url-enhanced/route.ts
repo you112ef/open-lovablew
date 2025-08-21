@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const runtime = "edge";
+
 // Function to sanitize smart quotes and other problematic characters
 function sanitizeQuotes(text: string): string {
   return text
-export const runtime = "edge";
     // Replace smart single quotes
     .replace(/[\u2018\u2019\u201A\u201B]/g, "'")
     // Replace smart double quotes
