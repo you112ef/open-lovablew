@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   // External packages for Cloudflare Workers compatibility
   serverExternalPackages: ['@e2b/code-interpreter'],
 
+  // Disable minification to fix webpack error
+  swcMinify: false,
+
   // Configure webpack for better compatibility
   webpack: (config: any, { dev, isServer }: any) => {
     // Handle external packages
@@ -31,6 +34,13 @@ const nextConfig: NextConfig = {
         path: false,
         os: false,
       };
+    }
+
+    // Disable minification plugins that cause issues
+    if (config.optimization && config.optimization.minimizer) {
+      config.optimization.minimizer = config.optimization.minimizer.filter(
+        (minimizer: any) => !minimizer.constructor.name.includes('Terser')
+      );
     }
 
     return config;
