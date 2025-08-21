@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { NextResponse } from 'next/server';
 
 // Stub endpoint to prevent 404 errors
