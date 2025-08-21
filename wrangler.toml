@@ -1,6 +1,9 @@
 name = "open-lovable22"
 compatibility_date = "2025-01-21"
 
+# Pages build configuration
+pages_build_output_dir = "out"
+
 [build]
 command = "npm run build"
 output_directory = "out"
@@ -10,15 +13,3 @@ name = "open-lovable22"
 
 [env.preview]
 name = "open-lovable22-preview"
-
-# Pages configuration
-[pages]
-# Enable Pages Functions if needed
-# functions_dir = "functions"
-
-# Environment variables (if needed)
-# [env.production.vars]
-# API_URL = "https://api.example.com"
-
-# [env.preview.vars]
-# API_URL = "https://staging-api.example.com"
