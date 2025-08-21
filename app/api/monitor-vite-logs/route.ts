@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-export const runtime = "edge";
 
 declare global {
   var activeSandbox: any;
 }
 
+export const runtime = "edge";
 export async function GET() {
   try {
     if (!global.activeSandbox) {

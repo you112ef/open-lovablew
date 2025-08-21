@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-export const runtime = "edge";
 
 declare global {
   var viteErrorsCache: { errors: any[], timestamp: number } | null;
 }
 
+export const runtime = "edge";
 export async function POST() {
   try {
     // Clear the cache

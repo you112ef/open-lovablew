@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-export const runtime = "edge";
 import type { ConversationState } from '@/types/conversation';
 
 declare global {
   var conversationState: ConversationState | null;
 }
+export const runtime = "edge";
 
 // GET: Retrieve current conversation state
 export async function GET() {

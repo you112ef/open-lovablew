@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   try {
     const { url } = await req.json();
     
+export const runtime = "edge";
     if (!url) {
       return NextResponse.json({ error: 'URL is required' }, { status: 400 });
     }

@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-export const runtime = "edge";
 
 declare global {
   var activeSandbox: any;
   var sandboxData: any;
   var existingFiles: Set<string>;
+export const runtime = "edge";
 }
 
 export async function GET() {
