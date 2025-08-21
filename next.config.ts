@@ -7,9 +7,6 @@ const nextConfig: NextConfig = {
   // External packages for Cloudflare Workers compatibility
   serverExternalPackages: ['@e2b/code-interpreter'],
 
-  // Disable minification to fix webpack error
-  swcMinify: false,
-
   // Configure webpack for better compatibility
   webpack: (config: any, { dev, isServer }: any) => {
     // Handle external packages
@@ -36,11 +33,20 @@ const nextConfig: NextConfig = {
       };
     }
 
-    // Disable minification plugins that cause issues
-    if (config.optimization && config.optimization.minimizer) {
-      config.optimization.minimizer = config.optimization.minimizer.filter(
-        (minimizer: any) => !minimizer.constructor.name.includes('Terser')
-      );
+    // Completely disable minification to fix WebpackError issue
+    if (config.optimization) {
+      config.optimization.minimize = false;
+      config.optimization.minimizer = [];
+    }
+
+    // Disable any plugins that might cause issues
+    if (config.plugins) {
+      config.plugins = config.plugins.filter((plugin: any) => {
+        const pluginName = plugin.constructor.name;
+        return !pluginName.includes('Terser') && 
+               !pluginName.includes('Minify') && 
+               !pluginName.includes('Optimize');
+      });
     }
 
     return config;
