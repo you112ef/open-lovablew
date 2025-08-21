@@ -1,15 +1,10 @@
-name = "open-lovable22"
+name = "open-lovablew"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
 compatibility_date = "2025-01-21"
 
-# Pages build configuration
+# Pages build configuration (keep for Pages integration)
 pages_build_output_dir = "out"
-
-[build]
-command = "npm run build"
-output_directory = "out"
-
-[env.production]
-name = "open-lovable22"
-
-[env.preview]
-name = "open-lovable22-preview"
