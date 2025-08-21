@@ -170,6 +170,11 @@ export async function POST(request: NextRequest) {
           if (manifest) {
             await sendProgress({ type: 'status', message: '🔍 Creating search plan...' });
             
+            if (!global.sandboxState?.fileCache?.files) {
+              console.warn('[generate-ai-code-stream] No file cache available, skipping search');
+              return;
+            }
+            
             const fileContents = global.sandboxState.fileCache.files;
             console.log('[generate-ai-code-stream] Files available for search:', Object.keys(fileContents).length);
             
@@ -331,7 +336,7 @@ User request: "${prompt}"`;
                         
                         // For now, fall back to keyword search since we don't have file contents for search execution
                         // This path happens when no manifest was initially available
-                        let targetFiles = [];
+                        let targetFiles: string[] = [];
                         if (!searchPlan || searchPlan.searchTerms.length === 0) {
                           console.warn('[generate-ai-code-stream] No target files after fetch, searching for relevant files');
                           
@@ -953,49 +958,53 @@ CRITICAL: When files are provided in the context:
                   }
                   
                   // Store files in cache
-                  for (const [path, content] of Object.entries(filesData.files)) {
-                    const normalizedPath = path.replace('/home/user/app/', '');
-                    global.sandboxState.fileCache.files[normalizedPath] = {
-                      content: content as string,
-                      lastModified: Date.now()
-                    };
-                  }
-                  
-                  if (filesData.manifest) {
-                    global.sandboxState.fileCache.manifest = filesData.manifest;
-                    
-                    // Now try to analyze edit intent with the fetched manifest
-                    if (!editContext) {
-                      console.log('[generate-ai-code-stream] Analyzing edit intent with fetched manifest');
-                      try {
-                        const intentResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/analyze-edit-intent`, {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ prompt, manifest: filesData.manifest, model })
-                        });
-                        
-                        if (intentResponse.ok) {
-                          const { searchPlan } = await intentResponse.json();
-                          console.log('[generate-ai-code-stream] Search plan received:', searchPlan);
-                          
-                          // Create edit context from AI analysis
-                          // Note: We can't execute search here without file contents, so fall back to keyword method
-                          const fileContext = selectFilesForEdit(prompt, filesData.manifest);
-                          editContext = fileContext;
-                          enhancedSystemPrompt = fileContext.systemPrompt;
-                          
-                          console.log('[generate-ai-code-stream] Edit context created with', editContext.primaryFiles.length, 'primary files');
-                        }
-                      } catch (error) {
-                        console.error('[generate-ai-code-stream] Failed to analyze edit intent:', error);
-                      }
+                  if (global.sandboxState?.fileCache?.files) {
+                    for (const [path, content] of Object.entries(filesData.files)) {
+                      const normalizedPath = path.replace('/home/user/app/', '');
+                      global.sandboxState.fileCache.files[normalizedPath] = {
+                        content: content as string,
+                        lastModified: Date.now()
+                      };
                     }
                   }
                   
+                  if (filesData.manifest && global.sandboxState?.fileCache) {
+                    global.sandboxState.fileCache.manifest = filesData.manifest;
+                  }
+                  
                   // Update variables
-                  backendFiles = global.sandboxState.fileCache.files;
-                  hasBackendFiles = Object.keys(backendFiles).length > 0;
-                  console.log('[generate-ai-code-stream] Updated backend cache with fetched files');
+                  if (global.sandboxState?.fileCache?.files) {
+                    backendFiles = global.sandboxState.fileCache.files;
+                    hasBackendFiles = Object.keys(backendFiles).length > 0;
+                    console.log('[generate-ai-code-stream] Updated backend cache with fetched files');
+                  }
+                  
+                  // Now try to analyze edit intent with the fetched manifest
+                  if (!editContext) {
+                    console.log('[generate-ai-code-stream] Analyzing edit intent with fetched manifest');
+                    try {
+                      const intentResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/analyze-edit-intent`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt, manifest: filesData.manifest, model })
+                      });
+                      
+                      if (intentResponse.ok) {
+                        const { searchPlan } = await intentResponse.json();
+                        console.log('[generate-ai-code-stream] Search plan received:', searchPlan);
+                        
+                        // Create edit context from AI analysis
+                        // Note: We can't execute search here without file contents, so fall back to keyword method
+                        const fileContext = selectFilesForEdit(prompt, filesData.manifest);
+                        editContext = fileContext;
+                        enhancedSystemPrompt = fileContext.systemPrompt;
+                        
+                        console.log('[generate-ai-code-stream] Edit context created with', editContext.primaryFiles.length, 'primary files');
+                      }
+                    } catch (error) {
+                      console.error('[generate-ai-code-stream] Failed to analyze edit intent:', error);
+                    }
+                  }
                 }
               }
             } catch (error) {
@@ -1595,7 +1604,7 @@ Provide the complete file content without any truncation. Include all necessary 
                 }
                 
                 const completionResult = await streamText({
-                  model: completionClient(modelMapping[model] || model),
+                  model: completionClient(model),
                   messages: [
                     { 
                       role: 'system', 
@@ -1603,8 +1612,7 @@ Provide the complete file content without any truncation. Include all necessary 
                     },
                     { role: 'user', content: completionPrompt }
                   ],
-                  temperature: isGPT5 ? undefined : appConfig.ai.defaultTemperature,
-                  maxTokens: appConfig.ai.truncationRecoveryMaxTokens
+                  temperature: appConfig.ai.defaultTemperature
                 });
                 
                 // Get the full text from the stream
