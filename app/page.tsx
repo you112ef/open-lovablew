@@ -58,10 +58,10 @@ export default function AISandboxPage() {
   ]);
   const [aiChatInput, setAiChatInput] = useState('');
   const [aiEnabled] = useState(true);
-  const searchParams = useSearchParams();
+  // const searchParams = null // useSearchParams() disabled for static export; // Disabled for static export
   const router = useRouter();
   const [aiModel, setAiModel] = useState(() => {
-    const modelParam = searchParams.get('model');
+    const modelParam = null // searchParams.get('model');
     return appConfig.ai.availableModels.includes(modelParam || '') ? modelParam! : appConfig.ai.defaultModel;
   });
   const [urlOverlayVisible, setUrlOverlayVisible] = useState(false);
@@ -157,7 +157,7 @@ export default function AISandboxPage() {
       if (!isMounted) return;
 
       // Check if sandbox ID is in URL
-      const sandboxIdParam = searchParams.get('sandbox');
+      const sandboxIdParam = null // searchParams.get('sandbox');
       
       setLoading(true);
       try {
@@ -395,7 +395,7 @@ export default function AISandboxPage() {
         log(`URL: ${data.url}`);
         
         // Update URL with sandbox ID
-        const newParams = new URLSearchParams(searchParams.toString());
+        const newParams = new URLSearchParams(window.location.search);
         newParams.set('sandbox', data.sandboxId);
         newParams.set('model', aiModel);
         router.push(`/?${newParams.toString()}`, { scroll: false });
@@ -1628,7 +1628,7 @@ Tip: I automatically detect and install npm packages from your code imports (lik
                               content: fileContent.trim(),
                               type: fileType,
                               completed: true,
-                              edited: true
+                              // edited: true
                             },
                             ...updatedState.files.slice(existingFileIndex + 1)
                           ];
@@ -1639,7 +1639,7 @@ Tip: I automatically detect and install npm packages from your code imports (lik
                             content: fileContent.trim(),
                             type: fileType,
                             completed: true,
-                            edited: false
+                            // edited: false
                           }];
                         }
                         
@@ -2565,7 +2565,7 @@ Focus on the key sections and content, making it clean and modern.`;
                               content: fileContent.trim(),
                               type: fileType,
                               completed: true,
-                              edited: true
+                              // edited: true
                             },
                             ...updatedState.files.slice(existingFileIndex + 1)
                           ];
@@ -2576,7 +2576,7 @@ Focus on the key sections and content, making it clean and modern.`;
                             content: fileContent.trim(),
                             type: fileType,
                             completed: true,
-                            edited: false
+                            // edited: false
                           }];
                         }
                         
@@ -2956,7 +2956,7 @@ Focus on the key sections and content, making it clean and modern.`;
                   onChange={(e) => {
                     const newModel = e.target.value;
                     setAiModel(newModel);
-                    const params = new URLSearchParams(searchParams);
+                    const params = new URLSearchParams(window.location.search);
                     params.set('model', newModel);
                     if (sandboxData?.sandboxId) {
                       params.set('sandbox', sandboxData.sandboxId);
@@ -2970,7 +2970,7 @@ Focus on the key sections and content, making it clean and modern.`;
                 >
                   {appConfig.ai.availableModels.map(model => (
                     <option key={model} value={model}>
-                      {appConfig.ai.modelDisplayNames[model] || model}
+                      {(appConfig.ai.modelDisplayNames as any)[model] || model}
                     </option>
                   ))}
                 </select>
@@ -2995,7 +2995,7 @@ Focus on the key sections and content, making it clean and modern.`;
             onChange={(e) => {
               const newModel = e.target.value;
               setAiModel(newModel);
-              const params = new URLSearchParams(searchParams);
+              const params = new URLSearchParams(window.location.search);
               params.set('model', newModel);
               if (sandboxData?.sandboxId) {
                 params.set('sandbox', sandboxData.sandboxId);
@@ -3006,7 +3006,7 @@ Focus on the key sections and content, making it clean and modern.`;
           >
             {appConfig.ai.availableModels.map(model => (
               <option key={model} value={model}>
-                {appConfig.ai.modelDisplayNames[model] || model}
+                {(appConfig.ai.modelDisplayNames as any)[model] || model}
               </option>
             ))}
           </select>
