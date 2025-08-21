@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 declare global {
   var activeSandbox: any;
   var sandboxData: any;
-  var existingFiles: Set<string>;
 export const runtime = "edge";
+  var existingFiles: Set<string>;
 }
 
 export async function POST() {

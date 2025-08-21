@@ -3,8 +3,8 @@ import type { SandboxState } from '@/types/sandbox';
 import type { ConversationState } from '@/types/conversation';
 
 declare global {
-  var conversationState: ConversationState | null;
 export const runtime = "edge";
+  var conversationState: ConversationState | null;
 }
 
 interface ParsedResponse {

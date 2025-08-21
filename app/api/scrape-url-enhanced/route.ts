@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 // Function to sanitize smart quotes and other problematic characters
 function sanitizeQuotes(text: string): string {
   return text
-    // Replace smart single quotes
 export const runtime = "edge";
+    // Replace smart single quotes
     .replace(/[\u2018\u2019\u201A\u201B]/g, "'")
     // Replace smart double quotes
     .replace(/[\u201C\u201D\u201E\u201F]/g, '"')

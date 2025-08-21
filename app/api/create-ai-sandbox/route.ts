@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
+import { Sandbox } from '@e2b/code-interpreter';
 import type { SandboxState } from '@/types/sandbox';
 import { appConfig } from '@/config/app.config';
 
+export const runtime = "edge";
 
 // Store active sandbox globally
-export const runtime = "edge";
 declare global {
   var activeSandbox: any;
   var sandboxData: any;

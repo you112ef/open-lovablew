@@ -3,8 +3,8 @@ import { Sandbox } from '@e2b/code-interpreter';
 
 declare global {
   var activeSandbox: any;
-  var sandboxData: any;
 export const runtime = "edge";
+  var sandboxData: any;
 }
 
 export async function POST(request: NextRequest) {

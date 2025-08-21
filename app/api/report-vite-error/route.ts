@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 declare global {
   var viteErrors: any[];
 }
-
 export const runtime = "edge";
+
 // Initialize global viteErrors array if it doesn't exist
 if (!global.viteErrors) {
   global.viteErrors = [];

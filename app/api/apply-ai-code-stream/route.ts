@@ -3,8 +3,8 @@ import { Sandbox } from '@e2b/code-interpreter';
 import type { SandboxState } from '@/types/sandbox';
 import type { ConversationState } from '@/types/conversation';
 
-declare global {
 export const runtime = "edge";
+declare global {
   var conversationState: ConversationState | null;
   var activeSandbox: any;
   var existingFiles: Set<string>;
