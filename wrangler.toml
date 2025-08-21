@@ -1,3 +1,5 @@
 name = "open-lovablew"
 compatibility_date = "2025-01-21"
-pages_build_output_dir = "out"
+# When using next-on-pages, Pages will publish from .vercel/output/static
+# but wrangler.toml can omit pages_build_output_dir; Pages settings will use
+# the build output automatically.

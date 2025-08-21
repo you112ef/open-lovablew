@@ -7,8 +7,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "build:static": "next build && next export",
-    "build:cf": "echo Skipping Cloudflare CLI build step on Pages",
-    "build:cloudflare": "echo Skipping extra Cloudflare build step on Pages",
+    "build:cf": "next build && npx --yes @cloudflare/next-on-pages@latest",
+    "build:cloudflare": "npm run build:cf",
     "start": "next start",
     "deploy": "wrangler pages deploy out --compatibility-date=2024-08-20",
     "deploy:static": "wrangler pages deploy out --compatibility-date=2024-08-20",
@@ -60,6 +60,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5",
+    "vercel": "^46.0.2",
     "wrangler": "^4.31.0"
   }
 }

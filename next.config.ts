@@ -1,27 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Configuration for Cloudflare Pages deployment
-  output: 'export',
-  trailingSlash: true,
-  
-  // Fix for Cloudflare Pages static export
-  assetPrefix: undefined,
-  basePath: '',
-  
-  // Disable image optimization for static export
-  images: {
-    unoptimized: true,
-    loader: 'custom',
-    loaderFile: './app/image-loader.js'
-  },
-  
-  // External packages for Cloudflare Workers compatibility  
+  // Enable SSR/Pages Functions on Cloudflare Pages
+  // Remove static export and allow default Next rendering
+
+  // External packages for Cloudflare Workers compatibility
   serverExternalPackages: ['@e2b/code-interpreter'],
-  
-  // Ensure proper static export
-  distDir: '.next',
-  
+
   // Configure webpack for better compatibility
   webpack: (config: any, { dev, isServer }: any) => {
     // Handle external packages
@@ -38,7 +23,7 @@ const nextConfig: NextConfig = {
       tls: false,
     };
     
-    // Fix for Tailwind CSS v4 compatibility
+    // Client-side fallbacks
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -47,7 +32,7 @@ const nextConfig: NextConfig = {
         os: false,
       };
     }
-    
+
     return config;
   }
 };
