@@ -3011,7 +3011,7 @@ Focus on the key sections and content, making it clean and modern.`;
             ))}
           </select>
           <Button 
-            variant="code"
+            variant="default"
             onClick={() => createSandbox()}
             size="sm"
             title="Create new sandbox"
@@ -3021,7 +3021,7 @@ Focus on the key sections and content, making it clean and modern.`;
             </svg>
           </Button>
           <Button 
-            variant="code"
+            variant="secondary"
             onClick={reapplyLastGeneration}
             size="sm"
             title="Re-apply last generation"
@@ -3032,7 +3032,7 @@ Focus on the key sections and content, making it clean and modern.`;
             </svg>
           </Button>
           <Button 
-            variant="code"
+            variant="outline"
             onClick={downloadZip}
             disabled={!sandboxData}
             size="sm"
@@ -3375,7 +3375,7 @@ Focus on the key sections and content, making it clean and modern.`;
               {sandboxData && !generationProgress.isGenerating && (
                 <>
                   <Button
-                    variant="code"
+                    variant="outline"
                     size="sm"
                     asChild
                   >

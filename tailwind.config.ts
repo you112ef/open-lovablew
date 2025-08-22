@@ -191,7 +191,6 @@ const config: Config = {
         "lens-rotate": "lens-rotate 2s linear infinite",
         "push-up": "pushUp 0.4s ease-out forwards",
         "fade-in-smooth": "fadeInSmooth 0.6s ease-out forwards",
-        "fade-in-up": "fadeInUp 0.5s ease-out forwards",
       },
       keyframes: {
         fadeIn: {
