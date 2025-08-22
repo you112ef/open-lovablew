@@ -23,6 +23,8 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import CodeApplicationProgress, { type CodeApplicationState } from '@/components/CodeApplicationProgress';
 import Settings from '@/components/Settings';
+import PWAInstaller from '@/components/PWAInstaller';
+import OfflineIndicator from '@/components/OfflineIndicator';
 import { areRequiredApiKeysConfigured } from '@/lib/api-keys';
 
 interface SandboxData {
@@ -3458,6 +3460,12 @@ Focus on the key sections and content, making it clean and modern.`;
         isOpen={showSettings} 
         onClose={() => setShowSettings(false)} 
       />
+
+      {/* PWA Installer */}
+      <PWAInstaller />
+
+      {/* Offline Indicator */}
+      <OfflineIndicator />
 
     </div>
   );

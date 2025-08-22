@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
   assetPrefix: undefined,
   basePath: '',
   
+  // PWA Configuration
+  experimental: {
+    webpackBuildWorker: true,
+  },
+  
   // Disable image optimization for static export
   images: {
     unoptimized: true,
@@ -21,6 +26,51 @@ const nextConfig: NextConfig = {
   
   // Ensure proper static export
   distDir: '.next',
+  
+  // Headers for PWA and security
+  async headers() {
+    return [
+      {
+        source: '/sw.js',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
+          },
+          {
+            key: 'Service-Worker-Allowed',
+            value: '/',
+          },
+        ],
+      },
+      {
+        source: '/manifest.json',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/manifest+json',
+          },
+        ],
+      },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+        ],
+      },
+    ];
+  },
   
   // Configure webpack for better compatibility
   webpack: (config: any, { dev, isServer }: any) => {
@@ -46,6 +96,12 @@ const nextConfig: NextConfig = {
         path: false,
         os: false,
       };
+    }
+    
+    // PWA-specific webpack configuration
+    if (!dev && !isServer) {
+      // Ensure service worker is properly handled
+      config.output.publicPath = '/';
     }
     
     return config;

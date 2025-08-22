@@ -17,7 +17,10 @@
     "test:integration": "node tests/e2b-integration.test.js",
     "test:api": "node tests/api-endpoints.test.js",
     "test:code": "node tests/code-execution.test.js",
-    "test:all": "npm run test:integration && npm run test:api && npm run test:code"
+    "test:all": "npm run test:integration && npm run test:api && npm run test:code",
+    "pwa:icons": "node scripts/generate-icons.js",
+    "pwa:test": "npm run build && npx serve out",
+    "pwa:audit": "npx lighthouse http://localhost:3000 --preset=desktop --output=html --output-path=./lighthouse-report.html"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^2.0.1",
