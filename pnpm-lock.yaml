@@ -32,12 +32,18 @@ importers:
       '@radix-ui/react-switch':
         specifier: ^1.2.5
         version: 1.2.6(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@tailwindcss/forms':
+        specifier: ^0.5.10
+        version: 0.5.10(tailwindcss@3.4.17(ts-node@10.9.1(@types/node@20.19.11)(typescript@5.9.2)))
       '@types/react-syntax-highlighter':
         specifier: ^15.5.13
         version: 15.5.13
       ai:
         specifier: ^5.0.0
         version: 5.0.21(zod@3.25.76)
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -65,6 +71,9 @@ importers:
       next:
         specifier: 15.4.3
         version: 15.4.3(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -80,6 +89,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
+      tailwindcss:
+        specifier: ^3.4.17
+        version: 3.4.17(ts-node@10.9.1(@types/node@20.19.11)(typescript@5.9.2))
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17(ts-node@10.9.1(@types/node@20.19.11)(typescript@5.9.2)))
@@ -105,21 +117,12 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.1.7(@types/react@19.1.10)
-      autoprefixer:
-        specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.6)
       eslint:
         specifier: ^9
         version: 9.33.0(jiti@1.21.7)
       eslint-config-next:
         specifier: 15.4.3
         version: 15.4.3(eslint@9.33.0(jiti@1.21.7))(typescript@5.9.2)
-      postcss:
-        specifier: ^8.5.6
-        version: 8.5.6
-      tailwindcss:
-        specifier: ^3.4.17
-        version: 3.4.17(ts-node@10.9.1(@types/node@20.19.11)(typescript@5.9.2))
       typescript:
         specifier: ^5
         version: 5.9.2
@@ -1020,6 +1023,11 @@ packages:
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
+
+  '@tailwindcss/forms@0.5.10':
+    resolution: {integrity: sha512-utI1ONF6uf/pPNO68kmN1b8rEwNXv3czukalo8VtJH8ksIkZXr3Q3VYudZLkCsDd4Wku120uF02hYK25XGPorw==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || >= 4.0.0-alpha.20 || >= 4.0.0-beta.1'
 
   '@tootallnate/once@2.0.0':
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
@@ -2757,6 +2765,10 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
 
+  mini-svg-data-uri@1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
+
   miniflare@3.20250718.1:
     resolution: {integrity: sha512-9QAOHVKIVHmnQ1dJT9Fls8aVA8R5JjEizzV889Dinq/+bEPltqIepCvm9Z+fbNUgLvV7D/H1NUk8VdlLRgp9Wg==}
     engines: {node: '>=16.13'}
@@ -4455,6 +4467,11 @@ snapshots:
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
+
+  '@tailwindcss/forms@0.5.10(tailwindcss@3.4.17(ts-node@10.9.1(@types/node@20.19.11)(typescript@5.9.2)))':
+    dependencies:
+      mini-svg-data-uri: 1.4.4
+      tailwindcss: 3.4.17(ts-node@10.9.1(@types/node@20.19.11)(typescript@5.9.2))
 
   '@tootallnate/once@2.0.0': {}
 
@@ -6374,6 +6391,8 @@ snapshots:
       mime-db: 1.52.0
 
   mime@3.0.0: {}
+
+  mini-svg-data-uri@1.4.4: {}
 
   miniflare@3.20250718.1:
     dependencies:
