@@ -20,6 +20,8 @@ import {
   SiCss3, 
   SiJson 
 } from '@/lib/icons';
+import SettingsButton from './components/SettingsButton';
+import ApiKeysWarning from './components/ApiKeysWarning';
 import { motion, AnimatePresence } from 'framer-motion';
 import CodeApplicationProgress, { type CodeApplicationState } from '@/components/CodeApplicationProgress';
 
@@ -2718,6 +2720,7 @@ Focus on the key sections and content, making it clean and modern.`;
 
   return (
     <div className="font-sans bg-lovable-gradient text-foreground h-screen flex flex-col">
+      <ApiKeysWarning />
       {/* Home Screen Overlay */}
       {showHomeScreen && (
         <div className={`fixed inset-0 z-50 transition-opacity duration-500 ${homeScreenFading ? 'opacity-0' : 'opacity-100'}`}>
@@ -2754,15 +2757,18 @@ Focus on the key sections and content, making it clean and modern.`;
             <div className="text-white text-xl font-semibold">
               Lovable
             </div>
-            <a 
-              href="https://github.com/mendableai/open-lovable" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-sm font-medium border border-white/20 hover:bg-white/20 transition-all duration-200"
-            >
-              <FiGithub className="w-4 h-4" />
-              <span>GitHub</span>
-            </a>
+            <div className="flex items-center gap-3">
+              <SettingsButton />
+              <a 
+                href="https://github.com/mendableai/open-lovable" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-sm font-medium border border-white/20 hover:bg-white/20 transition-all duration-200"
+              >
+                <FiGithub className="w-4 h-4" />
+                <span>GitHub</span>
+              </a>
+            </div>
           </div>
           
           {/* Main content */}
@@ -3389,6 +3395,7 @@ Focus on the key sections and content, making it clean and modern.`;
               </div>
             </div>
             <div className="flex gap-2 items-center">
+              <SettingsButton />
               {/* Live Code Generation Status - Moved to far right */}
               {activeTab === 'generation' && (generationProgress.isGenerating || generationProgress.files.length > 0) && (
                 <div className="flex items-center gap-3">
