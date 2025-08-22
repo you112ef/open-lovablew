@@ -1,99 +1,128 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Image, Globe, Zap, ChevronDown, Send } from 'lucide-react';
+import Header from '../components/Header';
+import Navigation from '../components/Navigation';
+import AIChat from '../components/AIChat';
+import CodeViewer from '../components/CodeViewer';
+import Preview from '../components/Preview';
 
-export default function HomePage() {
-  const [inputValue, setInputValue] = useState('');
+interface GeneratedFile {
+  name: string;
+  content: string;
+  type: 'jsx' | 'tsx' | 'css' | 'json' | 'html';
+  path: string;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (inputValue.trim()) {
-      console.log('Submitting:', inputValue);
-      alert(`You entered: ${inputValue}`);
-      setInputValue('');
-    }
+export default function LovableApp() {
+  const [activeTab, setActiveTab] = useState<'chat' | 'code' | 'preview'>('chat');
+  const [selectedModel, setSelectedModel] = useState('gpt-4');
+  const [projectName, setProjectName] = useState('تطبيق Lovable الجديد');
+  const [generatedFiles, setGeneratedFiles] = useState<GeneratedFile[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleFilesGenerated = (files: GeneratedFile[]) => {
+    setGeneratedFiles(files);
+    setIsGenerating(false);
+  };
+
+  const handleTabChange = (tab: 'chat' | 'code' | 'preview') => {
+    setActiveTab(tab);
+  };
+
+  const handleProjectNameChange = (name: string) => {
+    setProjectName(name);
+  };
+
+  const handleModelChange = (model: string) => {
+    setSelectedModel(model);
+  };
+
+  const handleRegenerate = () => {
+    setIsGenerating(true);
+    // Simulate regeneration
+    setTimeout(() => {
+      setIsGenerating(false);
+    }, 2000);
+  };
+
+  const handleDownload = () => {
+    const projectData = {
+      name: projectName,
+      files: generatedFiles,
+      timestamp: new Date().toISOString()
+    };
+
+    const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${projectName}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4">
-      {/* Header text */}
-      <div className="text-center mb-16">
-        <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-          Build something Lovable
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
-          Create apps and websites by chatting with AI
-        </p>
+    <div className="min-h-screen bg-gradient-to-b from-slate-800 via-slate-700 to-pink-300 relative overflow-hidden">
+      {/* Noise texture overlay */}
+      <div className="absolute inset-0 opacity-10">
+        <div 
+          className="absolute inset-0" 
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }} 
+        />
       </div>
 
-      {/* Chat input area */}
-      <div className="w-full max-w-4xl">
-        <form onSubmit={handleSubmit}>
-          <div className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-gray-700">
-            {/* Input field */}
-            <div className="mb-4">
-              <textarea
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                className="w-full bg-transparent text-gray-300 placeholder-gray-400 resize-none outline-none text-lg"
-                placeholder="Ask Lovable to create a web app that..."
-                rows={3}
-              />
-            </div>
+      {/* Header */}
+      <Header
+        projectName={projectName}
+        onProjectNameChange={handleProjectNameChange}
+        selectedModel={selectedModel}
+        onModelChange={handleModelChange}
+      />
 
-            {/* Bottom row of icons and buttons */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <button 
-                  type="button"
-                  className="p-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
-                  title="Add attachment"
-                >
-                  <Plus className="w-5 h-5 text-white" />
-                </button>
-                <button 
-                  type="button"
-                  className="p-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
-                  title="Add image"
-                >
-                  <Image className="w-5 h-5 text-white" />
-                </button>
-                <button 
-                  type="button"
-                  className="p-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
-                  title="Browse web"
-                >
-                  <Globe className="w-5 h-5 text-white" />
-                </button>
-                <button 
-                  type="button"
-                  className="flex items-center space-x-1 px-3 py-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
-                  title="AI model options"
-                >
-                  <Zap className="w-5 h-5 text-green-400" />
-                  <ChevronDown className="w-4 h-4 text-green-400" />
-                </button>
-              </div>
+      {/* Navigation */}
+      <Navigation
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        hasGeneratedFiles={generatedFiles.length > 0}
+      />
 
-              <button 
-                type="submit"
-                className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors hover:scale-105"
-                title="Send message"
-              >
-                <Send className="w-5 h-5 text-gray-700" />
-              </button>
-            </div>
+      {/* Main Content */}
+      <main className="relative z-10 flex-1 flex">
+        {/* Chat Panel */}
+        {activeTab === 'chat' && (
+          <div className="w-full max-w-2xl bg-gray-900/50 backdrop-blur-sm border-r border-gray-700">
+            <AIChat
+              onFilesGenerated={handleFilesGenerated}
+              onTabChange={handleTabChange}
+            />
           </div>
-        </form>
-      </div>
+        )}
 
-      {/* Simple demo message */}
-      <div className="mt-8 text-center">
-        <p className="text-gray-400 text-sm">
-          This is a demo version of the Lovable interface
-        </p>
-      </div>
+        {/* Code Panel */}
+        {activeTab === 'code' && (
+          <div className="flex-1 bg-gray-900/50 backdrop-blur-sm">
+            <CodeViewer
+              files={generatedFiles}
+              isGenerating={isGenerating}
+              onRegenerate={handleRegenerate}
+              onDownload={handleDownload}
+            />
+          </div>
+        )}
+
+        {/* Preview Panel */}
+        {activeTab === 'preview' && (
+          <div className="flex-1 bg-gray-900/50 backdrop-blur-sm">
+            <Preview
+              files={generatedFiles}
+              projectName={projectName}
+            />
+          </div>
+        )}
+      </main>
     </div>
   );
 }
