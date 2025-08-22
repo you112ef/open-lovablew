@@ -51,6 +51,11 @@ const nextConfig: NextConfig = {
       });
     }
 
+    // Suppress warnings
+    config.stats = {
+      warnings: false
+    };
+    
     return config;
   }
 };
