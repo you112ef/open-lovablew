@@ -7,7 +7,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "build:static": "next build && next export",
-    "build:cf": "next build && pnpm exec @cloudflare/next-on-pages@latest",
+    "build:cf": "next build && npx @cloudflare/next-on-pages@latest",
     "build:cloudflare": "npm run build:cf",
     "build:vercel": "next build",
     "deploy:vercel": "vercel --prod",
