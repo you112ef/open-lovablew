@@ -26,6 +26,7 @@ import Settings from '@/components/Settings';
 import PWAInstaller from '@/components/PWAInstaller';
 import OfflineIndicator from '@/components/OfflineIndicator';
 import { areRequiredApiKeysConfigured } from '@/lib/api-keys';
+import { ArrowUp, Plus, Upload, RotateCcw, Zap } from "lucide-react";
 
 interface SandboxData {
   sandboxId: string;
