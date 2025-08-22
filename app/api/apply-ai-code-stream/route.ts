@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Sandbox } from '@e2b/code-interpreter';
-import type { SandboxState } from '@/types/sandbox';
-import type { ConversationState } from '@/types/conversation';
+// import { Sandbox } from '@e2b/code-interpreter'; // Disabled for Edge runtime
+// import type { SandboxState } from '@/types/sandbox';
+// import type { ConversationState } from '@/types/conversation';
 
 export const runtime = "edge";
 declare global {
-  var conversationState: ConversationState | null;
+  var conversationState: any | null;
   var activeSandbox: any;
   var existingFiles: Set<string>;
-  var sandboxState: SandboxState;
+  var sandboxState: any;
 }
 
 interface ParsedResponse {
@@ -464,7 +464,7 @@ export async function POST(request: NextRequest) {
                       if (data.type === 'success' && data.installedPackages) {
                         results.packagesInstalled = data.installedPackages;
                       }
-                    } catch (e) {
+                    } catch (_e) {
                       // Ignore parse errors
                     }
                   }

@@ -47,7 +47,7 @@ export default function HMRErrorDetector({ iframeRef, onErrorDetected }: HMRErro
             }
           }
         }
-      } catch (error) {
+      } catch (_error) {
         // Cross-origin errors are expected, ignore them
       }
     };

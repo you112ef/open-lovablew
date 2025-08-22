@@ -115,28 +115,37 @@
   }
 }
 
-/* CSS Variables for Tailwind CSS v3 */
+/* CSS Variables for Lovable Design System */
 :root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(240 10% 3.9%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(240 10% 3.9%);
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(240 10% 3.9%);
+  /* Lovable Dark Theme Colors */
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
   --primary: hsl(25 95% 53%);
   --primary-foreground: hsl(0 0% 98%);
-  --secondary: hsl(240 4.8% 95.9%);
-  --secondary-foreground: hsl(240 5.9% 10%);
-  --muted: hsl(240 4.8% 95.9%);
-  --muted-foreground: hsl(240 3.8% 46.1%);
-  --accent: hsl(240 4.8% 95.9%);
-  --accent-foreground: hsl(240 5.9% 10%);
-  --destructive: hsl(0 84.2% 60.2%);
+  --secondary: hsl(240 3.8% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --muted: hsl(240 3.8% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.8% 15.9%);
+  --accent-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
   --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(240 5.9% 90%);
-  --input: hsl(240 5.9% 90%);
+  --border: hsl(240 3.8% 15.9%);
+  --input: hsl(240 3.8% 15.9%);
   --ring: hsl(25 95% 53%);
-  --radius: 0.5rem;
+  --radius: 0.75rem;
+  
+  /* Lovable Specific Colors */
+  --lovable-gradient-start: hsl(240 10% 3.9%);
+  --lovable-gradient-end: hsl(15 70% 50%);
+  --lovable-chat-bg: hsl(240 5% 8%);
+  --lovable-text-primary: hsl(0 0% 98%);
+  --lovable-text-secondary: hsl(240 5% 64.9%);
+  --lovable-accent-green: hsl(142 76% 36%);
 }
 
 @layer utilities {
@@ -160,6 +169,50 @@
   .bg-gradient-conic {
     background-image: conic-gradient(var(--tw-gradient-stops));
   }
+  
+  /* Lovable gradient background */
+  .bg-lovable-gradient {
+    background: linear-gradient(180deg, var(--lovable-gradient-start) 0%, var(--lovable-gradient-end) 100%);
+    background-size: 100% 100%;
+  }
+  
+  /* Lovable chat input styling */
+  .lovable-chat-input {
+    background: var(--lovable-chat-bg);
+    border: 1px solid hsl(240 3.8% 15.9%);
+    border-radius: 0.75rem;
+    color: var(--lovable-text-primary);
+  }
+  
+  .lovable-chat-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px hsl(25 95% 53% / 0.2);
+  }
+  
+  /* Lovable button styling */
+  .lovable-button {
+    background: var(--lovable-chat-bg);
+    color: var(--lovable-text-primary);
+    border: 1px solid hsl(240 3.8% 15.9%);
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+  }
+  
+  .lovable-button:hover {
+    background: hsl(240 3.8% 20%);
+    border-color: var(--primary);
+  }
+  
+  .lovable-button-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+  }
+  
+  .lovable-button-primary:hover {
+    background: hsl(25 95% 45%);
+  }
 }
 
 @layer base {
@@ -167,8 +220,10 @@
     border-color: theme('colors.border');
   }
   body {
-    background-color: theme('colors.background');
+    background: linear-gradient(180deg, var(--lovable-gradient-start) 0%, var(--lovable-gradient-end) 100%);
     color: theme('colors.foreground');
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
 

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { Sandbox } from '@e2b/code-interpreter';
-import type { SandboxState } from '@/types/sandbox';
+// import { Sandbox } from '@e2b/code-interpreter'; // Disabled for Edge runtime
+// import type { SandboxState } from '@/types/sandbox'; // Disabled for Edge runtime
 import { appConfig } from '@/config/app.config';
 
 export const runtime = "edge";
@@ -10,7 +10,7 @@ declare global {
   var activeSandbox: any;
   var sandboxData: any;
   var existingFiles: Set<string>;
-  var sandboxState: SandboxState;
+  var sandboxState: any;
 }
 
 export async function POST() {

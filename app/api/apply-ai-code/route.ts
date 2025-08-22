@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { SandboxState } from '@/types/sandbox';
-import type { ConversationState } from '@/types/conversation';
+// import type { SandboxState } from '@/types/sandbox'; // Disabled for Edge runtime
+// import type { ConversationState } from '@/types/conversation'; // Disabled for Edge runtime
 
 export const runtime = "edge";
 
 declare global {
-  var conversationState: ConversationState | null;
+  var conversationState: any | null;
 }
 
 interface ParsedResponse {
@@ -131,7 +131,7 @@ function parseAIResponse(response: string): ParsedResponse {
 declare global {
   var activeSandbox: any;
   var existingFiles: Set<string>;
-  var sandboxState: SandboxState;
+  var sandboxState: any;
 }
 
 export async function POST(request: NextRequest) {
@@ -512,8 +512,8 @@ if result.stderr:
     print(f"Errors: {result.stderr}")
         `);
         results.commandsExecuted.push(cmd);
-      } catch (error) {
-        results.errors.push(`Failed to execute ${cmd}: ${(error as Error).message}`);
+      } catch (_error) {
+        results.errors.push(`Failed to execute ${cmd}`);
       }
     }
     

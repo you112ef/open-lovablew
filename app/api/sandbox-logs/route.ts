@@ -5,7 +5,7 @@ declare global {
 }
 export const runtime = "edge";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     if (!global.activeSandbox) {
       return NextResponse.json({ 

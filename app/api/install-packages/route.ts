@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Sandbox } from '@e2b/code-interpreter';
+// import { Sandbox } from '@e2b/code-interpreter'; // Disabled for Edge runtime
 
 declare global {
   var activeSandbox: any;
-export const runtime = "edge";
   var sandboxData: any;
 }
+
+export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
   try {
@@ -183,7 +184,7 @@ except Exception as e:
         }
         
         // Install only packages that aren't already installed
-        const packageList = packagesToInstall.join(' ');
+        // const packageList = packagesToInstall.join(' ');
         // Only send the npm install command message if we're actually installing new packages
         await sendProgress({ 
           type: 'info', 
