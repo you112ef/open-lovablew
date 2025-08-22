@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createGroq } from '@ai-sdk/groq';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAI } from '@ai-sdk/openai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
+// import { createGoogleGenerativeAI } from '@ai-sdk/google';
 export const runtime = "nodejs";
 import { generateObject } from 'ai';
 import { z } from 'zod';
-import type { FileManifest } from '@/types/file-manifest';
+// import type { FileManifest } from '@/types/file-manifest';
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
     const fileSummary = validFiles
       .map(([path, info]: [string, any]) => {
         const componentName = info.componentInfo?.name || path.split('/').pop();
-        const hasImports = info.imports?.length > 0;
+        // const hasImports = info.imports?.length > 0;
         const childComponents = info.componentInfo?.childComponents?.join(', ') || 'none';
         return `- ${path} (${componentName}, renders: ${childComponents})`;
       })

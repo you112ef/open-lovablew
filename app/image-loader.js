@@ -1,5 +1,5 @@
 // Custom image loader for Cloudflare Pages static export
-export default function cloudflareLoader({ src, width, quality }) {
+export default function cloudflareLoader({ src }) {
   // For external images, return as-is
   if (src.startsWith('http')) {
     return src;

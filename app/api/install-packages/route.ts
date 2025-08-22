@@ -184,7 +184,7 @@ except Exception as e:
         }
         
         // Install only packages that aren't already installed
-        const packageList = packagesToInstall.join(' ');
+        // const packageList = packagesToInstall.join(' ');
         // Only send the npm install command message if we're actually installing new packages
         await sendProgress({ 
           type: 'info', 

@@ -215,7 +215,7 @@ export default function AISandboxPage() {
       }
       captureUrlScreenshot(screenshotUrl);
     }
-  }, [showHomeScreen, homeUrlInput]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [showHomeScreen, homeUrlInput, urlScreenshot, isCapturingScreenshot]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   useEffect(() => {

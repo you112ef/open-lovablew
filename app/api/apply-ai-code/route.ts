@@ -512,8 +512,8 @@ if result.stderr:
     print(f"Errors: {result.stderr}")
         `);
         results.commandsExecuted.push(cmd);
-      } catch (error) {
-        results.errors.push(`Failed to execute ${cmd}: ${(error as Error).message}`);
+      } catch (_error) {
+        results.errors.push(`Failed to execute ${cmd}`);
       }
     }
     

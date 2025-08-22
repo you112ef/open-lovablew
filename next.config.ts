@@ -35,20 +35,15 @@ const nextConfig: NextConfig = {
       };
     }
 
-    // Completely disable minification to fix WebpackError issue
-    if (config.optimization) {
-      config.optimization.minimize = false;
-      config.optimization.minimizer = [];
+    // Enable production optimization for better performance
+    if (config.optimization && !dev) {
+      config.optimization.minimize = true;
+      // Keep minimizer configuration for production builds
     }
 
-    // Disable any plugins that might cause issues
-    if (config.plugins) {
-      config.plugins = config.plugins.filter((plugin: any) => {
-        const pluginName = plugin.constructor.name;
-        return !pluginName.includes('Terser') && 
-               !pluginName.includes('Minify') && 
-               !pluginName.includes('Optimize');
-      });
+    // Keep optimization plugins for production builds
+    if (config.plugins && !dev) {
+      // Allow optimization plugins in production
     }
 
     // Suppress warnings
