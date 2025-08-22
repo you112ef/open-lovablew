@@ -1,52 +1,82 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-medium text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95",
   {
     variants: {
       variant: {
-        default: "bg-zinc-900 text-white hover:bg-zinc-800 [box-shadow:inset_0px_-2px_0px_0px_#18181b,_0px_1px_6px_0px_rgba(24,_24,_27,_58%)] hover:translate-y-[1px] hover:scale-[0.98] hover:[box-shadow:inset_0px_-1px_0px_0px_#18181b,_0px_1px_3px_0px_rgba(24,_24,_27,_40%)] active:translate-y-[2px] active:scale-[0.97] active:[box-shadow:inset_0px_1px_1px_0px_#18181b,_0px_1px_2px_0px_rgba(24,_24,_27,_30%)] disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100",
-        secondary: "bg-zinc-100 text-zinc-900 hover:bg-zinc-200 [box-shadow:inset_0px_-2px_0px_0px_#d4d4d8,_0px_1px_6px_0px_rgba(161,_161,_170,_58%)] hover:translate-y-[1px] hover:scale-[0.98] hover:[box-shadow:inset_0px_-1px_0px_0px_#d4d4d8,_0px_1px_3px_0px_rgba(161,_161,_170,_40%)] active:translate-y-[2px] active:scale-[0.97] active:[box-shadow:inset_0px_1px_1px_0px_#d4d4d8,_0px_1px_2px_0px_rgba(161,_161,_170,_30%)] disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100",
-        outline: "border border-zinc-300 bg-transparent hover:bg-zinc-50 text-zinc-900 [box-shadow:inset_0px_-2px_0px_0px_#e4e4e7,_0px_1px_6px_0px_rgba(228,_228,_231,_58%)] hover:translate-y-[1px] hover:scale-[0.98] hover:[box-shadow:inset_0px_-1px_0px_0px_#e4e4e7,_0px_1px_3px_0px_rgba(228,_228,_231,_40%)] active:translate-y-[2px] active:scale-[0.97] active:[box-shadow:inset_0px_1px_1px_0px_#e4e4e7,_0px_1px_2px_0px_rgba(228,_228,_231,_30%)] disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100",
-        destructive: "bg-red-500 text-white hover:bg-red-600 [box-shadow:inset_0px_-2px_0px_0px_#dc2626,_0px_1px_6px_0px_rgba(239,_68,_68,_58%)] hover:translate-y-[1px] hover:scale-[0.98] hover:[box-shadow:inset_0px_-1px_0px_0px_#dc2626,_0px_1px_3px_0px_rgba(239,_68,_68,_40%)] active:translate-y-[2px] active:scale-[0.97] active:[box-shadow:inset_0px_1px_1px_0px_#dc2626,_0px_1px_2px_0px_rgba(239,_68,_68,_30%)] disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100",
-        code: "bg-[#36322F] text-white hover:bg-[#4a4542] [box-shadow:inset_0px_-2px_0px_0px_#171310,_0px_1px_6px_0px_rgba(58,_33,_8,_58%)] hover:translate-y-[1px] hover:scale-[0.98] hover:[box-shadow:inset_0px_-1px_0px_0px_#171310,_0px_1px_3px_0px_rgba(58,_33,_8,_40%)] active:translate-y-[2px] active:scale-[0.97] active:[box-shadow:inset_0px_1px_1px_0px_#171310,_0px_1px_2px_0px_rgba(58,_33,_8,_30%)] disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100",
-        orange: "bg-orange-500 text-white hover:bg-orange-600 [box-shadow:inset_0px_-2px_0px_0px_#c2410c,_0px_1px_6px_0px_rgba(234,_88,_12,_58%)] hover:translate-y-[1px] hover:scale-[0.98] hover:[box-shadow:inset_0px_-1px_0px_0px_#c2410c,_0px_1px_3px_0px_rgba(234,_88,_12,_40%)] active:translate-y-[2px] active:scale-[0.97] active:[box-shadow:inset_0px_1px_1px_0px_#c2410c,_0px_1px_2px_0px_rgba(234,_88,_12,_30%)] disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        default: "bg-gradient-primary text-primary-foreground hover:shadow-glow-primary hover:scale-105 shadow-medium",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-glow-destructive",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground hover:shadow-soft",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:shadow-soft",
+        ghost: "hover:bg-accent hover:text-accent-foreground hover:shadow-soft",
+        link: "text-primary underline-offset-4 hover:underline",
+        success: "bg-success text-success-foreground hover:bg-success/90 hover:shadow-glow-success",
+        warning: "bg-warning text-warning-foreground hover:bg-warning/90 hover:shadow-glow-warning",
+        info: "bg-info text-info-foreground hover:bg-info/90 hover:shadow-glow",
+        glass: "glass text-foreground hover:bg-opacity-20 hover:shadow-medium",
+        gradient: "bg-gradient-mesh text-white hover:shadow-strong hover:scale-105",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-8 px-3 py-1 text-sm",
-        lg: "h-12 px-6 py-3",
+        default: "h-11 px-6 py-3",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-12 rounded-lg px-8",
+        xl: "h-14 rounded-xl px-10 text-base",
+        icon: "h-10 w-10",
+        "icon-sm": "h-8 w-8",
+        "icon-lg": "h-12 w-12",
+      },
+      animation: {
+        none: "",
+        bounce: "animate-bounce-gentle",
+        pulse: "animate-pulse",
+        shimmer: "animate-shimmer",
+        scale: "hover:scale-105 active:scale-95",
+        slide: "animate-slide-in-right",
       },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      animation: "scale",
     },
   }
-)
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+  asChild?: boolean;
+  loading?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? "button" : "button"
+  ({ className, variant, size, animation, loading, leftIcon, rightIcon, children, disabled, ...props }, ref) => {
+    const Comp = props.asChild ? Slot : "button";
+    
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, animation, className }))}
         ref={ref}
+        disabled={disabled || loading}
         {...props}
-      />
-    )
+      >
+        {loading && (
+          <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+        )}
+        {!loading && leftIcon && <span className="mr-2">{leftIcon}</span>}
+        {children}
+        {!loading && rightIcon && <span className="ml-2">{rightIcon}</span>}
+      </Comp>
+    );
   }
-)
-Button.displayName = "Button"
+);
 
-export { Button, buttonVariants }
+Button.displayName = "Button";
+
+export { Button, buttonVariants };
