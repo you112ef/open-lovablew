@@ -2364,8 +2364,6 @@ Focus on the key sections and content, making it clean and modern while preservi
       
       // Now start the clone process which will stream the generation
       setUrlInput(homeUrlInput);
-      setUrlOverlayVisible(false); // Make sure overlay is closed
-      setUrlStatus(['Scraping website content...']);
       
       try {
         // Scrape the website
@@ -2392,7 +2390,7 @@ Focus on the key sections and content, making it clean and modern while preservi
           throw new Error(scrapeData.error || 'Failed to scrape website');
         }
         
-        setUrlStatus(['Website scraped successfully!', 'Generating React app...']);
+
         
         // Clear preparing design state and switch to generation tab
         setIsPreparingDesign(false);
