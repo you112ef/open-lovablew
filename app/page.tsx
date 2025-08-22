@@ -10,7 +10,7 @@ export default function HomePage() {
     e.preventDefault();
     if (inputValue.trim()) {
       console.log('Submitting:', inputValue);
-      // Here you can add your AI chat logic
+      alert(`You entered: ${inputValue}`);
       setInputValue('');
     }
   };
@@ -48,24 +48,28 @@ export default function HomePage() {
                 <button 
                   type="button"
                   className="p-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
+                  title="Add attachment"
                 >
                   <Plus className="w-5 h-5 text-white" />
                 </button>
                 <button 
                   type="button"
                   className="p-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
+                  title="Add image"
                 >
                   <Image className="w-5 h-5 text-white" />
                 </button>
                 <button 
                   type="button"
                   className="p-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
+                  title="Browse web"
                 >
                   <Globe className="w-5 h-5 text-white" />
                 </button>
                 <button 
                   type="button"
                   className="flex items-center space-x-1 px-3 py-2 rounded-full border border-gray-600 hover:border-gray-500 transition-colors hover:bg-gray-700/50"
+                  title="AI model options"
                 >
                   <Zap className="w-5 h-5 text-green-400" />
                   <ChevronDown className="w-4 h-4 text-green-400" />
@@ -75,12 +79,20 @@ export default function HomePage() {
               <button 
                 type="submit"
                 className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors hover:scale-105"
+                title="Send message"
               >
                 <Send className="w-5 h-5 text-gray-700" />
               </button>
             </div>
           </div>
         </form>
+      </div>
+
+      {/* Simple demo message */}
+      <div className="mt-8 text-center">
+        <p className="text-gray-400 text-sm">
+          This is a demo version of the Lovable interface
+        </p>
       </div>
     </div>
   );
