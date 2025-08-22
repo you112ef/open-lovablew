@@ -159,6 +159,18 @@ export default function Settings({ isOpen, onClose }: SettingsProps) {
                         onChange={(e) => handleInputChange('E2B_API_KEY', e.target.value)}
                         className="flex-1"
                       />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open('https://e2b.dev', '_blank')}
+                        className="px-3 py-2 text-xs whitespace-nowrap"
+                        title="Go to E2B website"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get Key
+                      </Button>
                       <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(getApiKeyStatus('E2B_API_KEY'))}`}>
                         {getStatusText(getApiKeyStatus('E2B_API_KEY'))}
                       </span>
@@ -181,6 +193,18 @@ export default function Settings({ isOpen, onClose }: SettingsProps) {
                         onChange={(e) => handleInputChange('FIRECRAWL_API_KEY', e.target.value)}
                         className="flex-1"
                       />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open('https://firecrawl.dev', '_blank')}
+                        className="px-3 py-2 text-xs whitespace-nowrap"
+                        title="Go to Firecrawl website"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get Key
+                      </Button>
                       <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(getApiKeyStatus('FIRECRAWL_API_KEY'))}`}>
                         {getStatusText(getApiKeyStatus('FIRECRAWL_API_KEY'))}
                       </span>
@@ -209,6 +233,18 @@ export default function Settings({ isOpen, onClose }: SettingsProps) {
                         onChange={(e) => handleInputChange('ANTHROPIC_API_KEY', e.target.value)}
                         className="flex-1"
                       />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open('https://console.anthropic.com', '_blank')}
+                        className="px-3 py-2 text-xs whitespace-nowrap"
+                        title="Go to Anthropic console"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get Key
+                      </Button>
                       <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(getApiKeyStatus('ANTHROPIC_API_KEY'))}`}>
                         {getStatusText(getApiKeyStatus('ANTHROPIC_API_KEY'))}
                       </span>
@@ -228,6 +264,18 @@ export default function Settings({ isOpen, onClose }: SettingsProps) {
                         onChange={(e) => handleInputChange('OPENAI_API_KEY', e.target.value)}
                         className="flex-1"
                       />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open('https://platform.openai.com', '_blank')}
+                        className="px-3 py-2 text-xs whitespace-nowrap"
+                        title="Go to OpenAI platform"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get Key
+                      </Button>
                       <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(getApiKeyStatus('OPENAI_API_KEY'))}`}>
                         {getStatusText(getApiKeyStatus('OPENAI_API_KEY'))}
                       </span>
@@ -247,6 +295,18 @@ export default function Settings({ isOpen, onClose }: SettingsProps) {
                         onChange={(e) => handleInputChange('GEMINI_API_KEY', e.target.value)}
                         className="flex-1"
                       />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open('https://aistudio.google.com/app/apikey', '_blank')}
+                        className="px-3 py-2 text-xs whitespace-nowrap"
+                        title="Go to Google AI Studio"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get Key
+                      </Button>
                       <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(getApiKeyStatus('GEMINI_API_KEY'))}`}>
                         {getStatusText(getApiKeyStatus('GEMINI_API_KEY'))}
                       </span>
@@ -266,6 +326,18 @@ export default function Settings({ isOpen, onClose }: SettingsProps) {
                         onChange={(e) => handleInputChange('GROQ_API_KEY', e.target.value)}
                         className="flex-1"
                       />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open('https://console.groq.com', '_blank')}
+                        className="px-2 py-2 text-xs whitespace-nowrap"
+                        title="Go to Groq console"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get Key
+                      </Button>
                       <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(getApiKeyStatus('GROQ_API_KEY'))}`}>
                         {getStatusText(getApiKeyStatus('GROQ_API_KEY'))}
                       </span>

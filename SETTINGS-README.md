@@ -52,6 +52,11 @@ At least one AI provider API key is recommended for code generation features:
 - **Yellow (⚠ Placeholder)**: API key contains placeholder text
 - **Red (✗ Missing)**: API key is not configured
 
+### Quick Access Buttons
+- **"Get Key" Button**: Each API key field has a button that opens the respective service website in a new tab
+- **Direct Navigation**: Users can quickly access the service they need without manually typing URLs
+- **Consistent Design**: All buttons have the same styling and include an external link icon
+
 ### Warning System
 - **Header Warning**: Red dot indicator on settings button when required keys are missing
 - **Banner Warning**: Red banner at the top of the page when required keys are missing
@@ -70,10 +75,21 @@ At least one AI provider API key is recommended for code generation features:
 ## Usage Workflow
 
 1. **Access Settings**: Click the settings button (⚙️) in the header
-2. **Configure Required Keys**: Add your E2B and Firecrawl API keys
-3. **Configure AI Providers**: Add at least one AI provider API key for best experience
-4. **Save Settings**: Click "Save Settings" to store your configuration
-5. **Verify Status**: Check that all required keys show "✓ Configured" status
+2. **Get API Keys**: Use the "Get Key" button next to each field to open the service website
+3. **Configure Required Keys**: Add your E2B and Firecrawl API keys
+4. **Configure AI Providers**: Add at least one AI provider API key for best experience
+5. **Save Settings**: Click "Save Settings" to store your configuration
+6. **Verify Status**: Check that all required keys show "✓ Configured" status
+
+## Quick Navigation
+
+### Using "Get Key" Buttons
+- **E2B**: Click "Get Key" → Opens [https://e2b.dev](https://e2b.dev) in new tab
+- **Firecrawl**: Click "Get Key" → Opens [https://firecrawl.dev](https://firecrawl.dev) in new tab
+- **Anthropic**: Click "Get Key" → Opens [https://console.anthropic.com](https://console.anthropic.com) in new tab
+- **OpenAI**: Click "Get Key" → Opens [https://platform.openai.com](https://platform.openai.com) in new tab
+- **Gemini**: Click "Get Key" → Opens [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey) in new tab
+- **Groq**: Click "Get Key" → Opens [https://console.groq.com](https://console.groq.com) in new tab
 
 ## Troubleshooting
 
