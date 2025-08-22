@@ -2,6 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global background gradient for the entire application */
+body {
+  background: linear-gradient(180deg, #2C2C40 0%, #3A3A50 25%, #4A4A60 50%, #E08080 75%, #F0A0A0 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Noise texture for the entire app */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Global text colors */
+body {
+  color: #FFFFFF;
+}
+
+/* Global link colors */
+a {
+  color: #E0E0E0;
+}
+
+a:hover {
+  color: #FFFFFF;
+}
+
+/* Global button styles */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Global input styles */
+input, textarea {
+  background-color: rgba(40, 40, 40, 0.8);
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  color: #E0E0E0;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #60A5FA;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+/* Global card styles */
+.card {
+  background-color: rgba(31, 41, 55, 0.9);
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  backdrop-filter: blur(10px);
+}
+
 @keyframes slide {
   0% { transform: translate(0, 0); }
   100% { transform: translate(70px, 70px); }

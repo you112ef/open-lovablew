@@ -3,13 +3,14 @@ import { Sandbox } from '@e2b/code-interpreter';
 import type { SandboxState } from '@/types/sandbox';
 import type { ConversationState } from '@/types/conversation';
 
-export const runtime = "edge";
 declare global {
   var conversationState: ConversationState | null;
   var activeSandbox: any;
   var existingFiles: Set<string>;
   var sandboxState: SandboxState;
 }
+
+export const runtime = "edge";
 
 interface ParsedResponse {
   explanation: string;
