@@ -9,11 +9,13 @@ const nextConfig: NextConfig = {
 
   // Configure webpack for better compatibility
   webpack: (config: any, { dev, isServer }: any) => {
-    // Handle external packages
-    config.externals = config.externals || [];
-    config.externals.push({
-      '@e2b/code-interpreter': '@e2b/code-interpreter'
-    });
+    // Handle external packages for Edge runtime
+    if (isServer) {
+      config.externals = config.externals || [];
+      config.externals.push({
+        '@e2b/code-interpreter': 'commonjs @e2b/code-interpreter'
+      });
+    }
     
     // Fix for potential module resolution issues
     config.resolve.fallback = {

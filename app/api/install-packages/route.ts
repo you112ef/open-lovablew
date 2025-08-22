@@ -6,7 +6,7 @@ declare global {
   var sandboxData: any;
 }
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
   try {

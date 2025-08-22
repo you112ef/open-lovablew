@@ -11,11 +11,23 @@ const nextConfig: NextConfig = {
     unoptimized: true
   },
   // Ensure API routes work with Cloudflare Workers runtime
-  webpack: (config: any) => {
-    config.externals = config.externals || [];
-    config.externals.push({
-      '@e2b/code-interpreter': '@e2b/code-interpreter'
-    });
+  webpack: (config: any, { isServer }: any) => {
+    // Handle external packages for Edge runtime
+    if (isServer) {
+      config.externals = config.externals || [];
+      config.externals.push({
+        '@e2b/code-interpreter': 'commonjs @e2b/code-interpreter'
+      });
+    }
+    
+    // Fix for potential module resolution issues
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    };
+    
     return config;
   }
 };

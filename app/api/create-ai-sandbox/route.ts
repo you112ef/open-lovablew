@@ -3,7 +3,7 @@ import { Sandbox } from '@e2b/code-interpreter';
 import type { SandboxState } from '@/types/sandbox';
 import { appConfig } from '@/config/app.config';
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 // Store active sandbox globally
 declare global {
