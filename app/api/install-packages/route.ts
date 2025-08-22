@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Sandbox } from '@e2b/code-interpreter';
+// import { Sandbox } from '@e2b/code-interpreter'; // Disabled for Edge runtime
 
 declare global {
   var activeSandbox: any;
   var sandboxData: any;
 }
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
   try {

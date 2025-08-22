@@ -3,13 +3,13 @@ import { createGroq } from '@ai-sdk/groq';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
-export const runtime = "nodejs";
+export const runtime = "edge";
 import { streamText } from 'ai';
-import type { SandboxState } from '@/types/sandbox';
+// import type { SandboxState } from '@/types/sandbox'; // Disabled for Edge runtime
 import { selectFilesForEdit, getFileContents, formatFilesForAI } from '@/lib/context-selector';
 import { executeSearchPlan, formatSearchResultsForAI, selectTargetFile } from '@/lib/file-search-executor';
 import { FileManifest } from '@/types/file-manifest';
-import type { ConversationState, ConversationMessage, ConversationEdit } from '@/types/conversation';
+// import type { ConversationState, ConversationMessage, ConversationEdit } from '@/types/conversation'; // Disabled for Edge runtime
 import { appConfig } from '@/config/app.config';
 
 const groq = createGroq({
@@ -69,8 +69,8 @@ function analyzeUserPreferences(messages: ConversationMessage[]): {
 }
 
 declare global {
-  var sandboxState: SandboxState;
-  var conversationState: ConversationState | null;
+      var sandboxState: any;
+  var conversationState: any | null;
 }
 
 export async function POST(request: NextRequest) {

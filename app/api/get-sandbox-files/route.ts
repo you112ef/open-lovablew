@@ -3,7 +3,7 @@ import { parseJavaScriptFile, buildComponentTree } from '@/lib/file-parser';
 import { FileManifest, FileInfo, RouteInfo } from '@/types/file-manifest';
 // import type { SandboxState } from '@/types/sandbox';
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 declare global {
   var activeSandbox: any;
 }

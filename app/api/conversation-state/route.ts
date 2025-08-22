@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { ConversationState } from '@/types/conversation';
+// import type { ConversationState } from '@/types/conversation'; // Disabled for Edge runtime
 
 declare global {
-  var conversationState: ConversationState | null;
+  var conversationState: any | null;
 }
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 // GET: Retrieve current conversation state
 export async function GET() {

@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 declare global {
   var activeSandbox: any;
 }
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function GET() {
   try {
