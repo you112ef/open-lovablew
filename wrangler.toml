@@ -1,3 +1,12 @@
 name = "open-lovablew"
 compatibility_date = "2025-01-21"
 pages_build_output_dir = "out"
+
+[build]
+command = "npm run build"
+
+[env.production]
+name = "open-lovablew-production"
+
+[env.staging]
+name = "open-lovablew-staging"
