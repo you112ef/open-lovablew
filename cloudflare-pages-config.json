@@ -1,0 +1,99 @@
+{
+  "project_name": "open-lovablew",
+  "repository": "https://github.com/you112ef/open-lovablew.git",
+  "framework": "nextjs",
+  "build_settings": {
+    "build_command": "npm install && npm run prepare:cloudflare",
+    "build_output_directory": ".vercel/output/static",
+    "root_directory": "/",
+    "node_version": "18.x"
+  },
+  "environment_variables": {
+    "production": {
+      "E2B_API_KEY": "your_e2b_api_key_here",
+      "ANTHROPIC_API_KEY": "your_anthropic_api_key_here",
+      "FIRECRAWL_API_KEY": "your_firecrawl_api_key_here",
+      "OPENAI_API_KEY": "your_openai_api_key_here",
+      "GOOGLE_API_KEY": "your_gemini_api_key_here",
+      "GROQ_API_KEY": "your_groq_api_key_here",
+      "NEXT_PUBLIC_APP_URL": "https://your-project.pages.dev"
+    },
+    "preview": {
+      "E2B_API_KEY": "your_e2b_api_key_here",
+      "ANTHROPIC_API_KEY": "your_anthropic_api_key_here",
+      "FIRECRAWL_API_KEY": "your_firecrawl_api_key_here",
+      "OPENAI_API_KEY": "your_openai_api_key_here",
+      "GOOGLE_API_KEY": "your_gemini_api_key_here",
+      "GROQ_API_KEY": "your_groq_api_key_here",
+      "NEXT_PUBLIC_APP_URL": "https://your-project.pages.dev"
+    }
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "api_keys_info": {
+    "required": [
+      {
+        "name": "E2B_API_KEY",
+        "url": "https://e2b.dev",
+        "description": "للبيئة الافتراضية والكود"
+      },
+      {
+        "name": "ANTHROPIC_API_KEY",
+        "url": "https://console.anthropic.com",
+        "description": "لـ Claude AI"
+      }
+    ],
+    "optional": [
+      {
+        "name": "OPENAI_API_KEY",
+        "url": "https://platform.openai.com",
+        "description": "لـ GPT models"
+      },
+      {
+        "name": "GROQ_API_KEY",
+        "url": "https://console.groq.com",
+        "description": "للاستجابة السريعة"
+      },
+      {
+        "name": "GOOGLE_API_KEY",
+        "url": "https://makersuite.google.com",
+        "description": "لـ Gemini models"
+      },
+      {
+        "name": "FIRECRAWL_API_KEY",
+        "url": "https://firecrawl.dev",
+        "description": "لـ web scraping"
+      }
+    ]
+  },
+  "deployment_steps": [
+    "1. اذهب إلى Cloudflare Dashboard",
+    "2. اختر Pages → Create a project",
+    "3. اختر Connect to Git",
+    "4. اختر مستودع open-lovablew",
+    "5. أضف Environment Variables",
+    "6. اضغط Deploy"
+  ],
+  "testing_checklist": [
+    "الواجهة تظهر بدون أخطاء",
+    "زر Settings يعمل",
+    "API Keys تُحفظ في localStorage",
+    "الـ APIs تستجيب بدون أخطاء",
+    "لا أخطاء في Console"
+  ],
+  "troubleshooting": {
+    "native_module_error": "تأكد من استخدام Build Command الصحيح",
+    "env_vars_error": "تحقق من إضافة المتغيرات في Production environment",
+    "build_error": "تحقق من Build logs و Node.js version",
+    "api_error": "تحقق من صحة API Keys و Rate limits"
+  },
+  "features": [
+    "واجهة Lovable جميلة",
+    "إدارة API Keys ديناميكية",
+    "جميع الـ routes تعمل مع Node.js runtime",
+    "مكتبات native متوافقة",
+    "نشر تلقائي مع كل push",
+    "أداء عالي وسرعة تحميل ممتازة"
+  ]
+}
