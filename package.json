@@ -9,6 +9,8 @@
     "build:static": "next build && next export",
     "build:cf": "next build && npx --yes @cloudflare/next-on-pages@latest",
     "build:cloudflare": "npm run build:cf",
+    "build:vercel": "next build",
+    "deploy:vercel": "vercel --prod",
     "start": "next start",
     "deploy": "wrangler pages deploy out --compatibility-date=2024-08-20",
     "deploy:static": "wrangler pages deploy out --compatibility-date=2024-08-20",

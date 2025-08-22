@@ -4,12 +4,12 @@ const nextConfig: NextConfig = {
   // Enable SSR/Pages Functions on Cloudflare Pages
   // Remove static export and allow default Next rendering
 
-  // External packages for Cloudflare Workers compatibility
+  // External packages for Node.js compatibility
   serverExternalPackages: ['@e2b/code-interpreter'],
 
   // Configure webpack for better compatibility
   webpack: (config: any, { dev, isServer }: any) => {
-    // Handle external packages for Edge runtime
+    // Handle external packages for Node.js runtime
     if (isServer) {
       config.externals = config.externals || [];
       config.externals.push({
