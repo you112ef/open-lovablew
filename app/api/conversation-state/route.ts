@@ -5,7 +5,7 @@ declare global {
   var conversationState: ConversationState | null;
 }
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 // GET: Retrieve current conversation state
 export async function GET() {

@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   // Enable SSR/Pages Functions on Cloudflare Pages
   // Remove static export and allow default Next rendering
 
-  // External packages for Node.js compatibility
+  // External packages for Cloudflare Pages compatibility
   serverExternalPackages: ['@e2b/code-interpreter'],
 
   // Configure webpack for better compatibility

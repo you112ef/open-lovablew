@@ -54,6 +54,14 @@ const API_KEYS: ApiKey[] = [
     description: 'For Gemini models access',
     required: false,
     placeholder: 'Enter your Google API key...'
+  },
+  {
+    name: 'FIRECRAWL_API_KEY',
+    key: '',
+    label: 'Firecrawl API Key',
+    description: 'For web scraping and content extraction',
+    required: false,
+    placeholder: 'Enter your Firecrawl API key...'
   }
 ];
 

@@ -3,7 +3,7 @@ import { Sandbox } from '@e2b/code-interpreter';
 import type { SandboxState } from '@/types/sandbox';
 import type { ConversationState } from '@/types/conversation';
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 declare global {
   var conversationState: ConversationState | null;
   var activeSandbox: any;

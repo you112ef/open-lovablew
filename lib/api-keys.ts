@@ -5,6 +5,7 @@ export interface ApiKeyConfig {
   OPENAI_API_KEY?: string;
   GROQ_API_KEY?: string;
   GOOGLE_API_KEY?: string;
+  FIRECRAWL_API_KEY?: string;
 }
 
 // Get API key from localStorage or environment variable
@@ -30,7 +31,8 @@ export function getAllApiKeys(): ApiKeyConfig {
     'ANTHROPIC_API_KEY', 
     'OPENAI_API_KEY',
     'GROQ_API_KEY',
-    'GOOGLE_API_KEY'
+    'GOOGLE_API_KEY',
+    'FIRECRAWL_API_KEY'
   ];
 
   keyNames.forEach(keyName => {
@@ -79,7 +81,8 @@ export function clearAllApiKeys(): void {
       'ANTHROPIC_API_KEY', 
       'OPENAI_API_KEY',
       'GROQ_API_KEY',
-      'GOOGLE_API_KEY'
+      'GOOGLE_API_KEY',
+      'FIRECRAWL_API_KEY'
     ];
 
     keyNames.forEach(keyName => {

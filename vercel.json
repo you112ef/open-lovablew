@@ -19,7 +19,7 @@
       "runtime": "nodejs18.x"
     }
   },
-  "buildCommand": "npm run build",
+  "buildCommand": "pnpm build",
   "outputDirectory": ".next",
   "framework": "nextjs"
 }

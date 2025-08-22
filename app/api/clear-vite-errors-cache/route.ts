@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 declare global {
   var viteErrorsCache: { errors: any[], timestamp: number } | null;
 }
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export async function POST() {
   try {

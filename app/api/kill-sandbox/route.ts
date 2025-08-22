@@ -6,7 +6,7 @@ declare global {
   var existingFiles: Set<string>;
 }
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export async function POST() {
   try {
