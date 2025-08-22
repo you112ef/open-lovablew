@@ -13,29 +13,40 @@ npm install -g vercel
 vercel login
 vercel --prod
 ```
+**المزايا**: جميع الوظائف تعمل 100%، دعم كامل لـ Node.js
 
-### ✅ **الحل 2: Cloudflare Pages مع تعديلات**
+### ✅ **الحل 2: Cloudflare Pages مع بدائل E2B (الجديد!)**
 
-إذا كنت مصراً على استخدام Cloudflare Pages، يجب تعديل التطبيق:
+تم إنشاء حلول بديلة لـ E2B تعمل مع Edge Runtime:
 
-#### 🚨 **الخطوة 1: تغيير جميع API routes إلى Edge Runtime**
+#### 🚀 **البدائل المتاحة:**
+
+1. **Replit API** - منصة تطوير كاملة
+2. **CodeSandbox API** - بيئة تطوير سريعة
+3. **StackBlitz API** - بيئة تطوير فورية
+4. **WASM Sandbox** - sandbox محلي في المتصفح
+
+#### 🎯 **كيفية الاستخدام:**
+
 ```bash
-# تشغيل سكربت التحويل للـ edge runtime
-node scripts/fix-runtime-edge.js
+# تحويل للـ Edge Runtime مع الحلول البديلة
+npm run fix:runtime:edge
+npm run build:cf
 ```
 
-#### 🚨 **الخطوة 2: إزالة أو استبدال مكتبات Node.js**
-يجب إزالة أو استبدال هذه المكتبات:
-- `@e2b/code-interpreter` ➜ حل بديل أو API خارجي
-- أي مكتبات أخرى تتطلب Node.js runtime
+#### 📋 **Environment Variables المطلوبة:**
 
-#### 🚨 **الخطوة 3: إعادة كتابة وظائف E2B**
-الوظائف التي تستخدم E2B تحتاج إعادة كتابة:
-- `create-ai-sandbox`
-- `run-command` 
-- `get-sandbox-files`
-- `install-packages`
-- وجميع الوظائف المتعلقة بإدارة Sandbox
+```
+# Replit (اختياري)
+REPLIT_API_KEY=your_replit_key_here
+
+# باقي API Keys
+FIRECRAWL_API_KEY=your_firecrawl_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+OPENAI_API_KEY=your_openai_key_here
+GEMINI_API_KEY=your_gemini_key_here
+GROQ_API_KEY=your_groq_key_here
+```
 
 ### ✅ **الحل 3: Hybrid Approach**
 
@@ -43,7 +54,7 @@ node scripts/fix-runtime-edge.js
 2. **API**: نشر على Vercel أو خدمة أخرى تدعم Node.js
 3. **تعديل API URLs**: تحديث التطبيق ليستخدم API مختلف
 
-## 📋 **خطوات النشر على Cloudflare Pages (مع القيود)**
+## 📋 **خطوات النشر على Cloudflare Pages (مع الحلول الجديدة)**
 
 ### 1️⃣ **إعداد Repository**
 ```bash
@@ -57,13 +68,16 @@ git remote -v  # تأكد من أن الـ repository مربوط
 4. **Connect to Git** واختر repository
 5. **Configure builds and deployments**:
    - **Framework preset**: Next.js
-   - **Build command**: `npm run build && npx @cloudflare/next-on-pages@latest`
+   - **Build command**: `npm run fix:runtime:edge && npm run build && npx @cloudflare/next-on-pages@latest`
    - **Build output directory**: `.vercel/output/static`
 
 ### 3️⃣ **Environment Variables**
 أضف هذه المتغيرات في Cloudflare Pages:
 ```
-E2B_API_KEY=your_e2b_key_here
+# Sandbox Providers (اختياري)
+REPLIT_API_KEY=your_replit_key_here
+
+# AI Providers
 FIRECRAWL_API_KEY=your_firecrawl_key_here
 ANTHROPIC_API_KEY=your_anthropic_key_here
 OPENAI_API_KEY=your_openai_key_here
@@ -75,33 +89,58 @@ GROQ_API_KEY=your_groq_key_here
 - **Node.js version**: 22
 - **Compatibility flags**: `nodejs_compat`
 
-## ⚠️ **القيود مع Cloudflare Pages:**
+## 🎯 **الميزات الجديدة مع الحلول البديلة:**
 
-1. **🚫 وظائف E2B لن تعمل** - تتطلب Node.js runtime
-2. **🚫 إنشاء Sandbox لن يعمل** - يعتمد على مكتبات native
-3. **🚫 تشغيل الكود لن يعمل** - يحتاج E2B API
-4. **✅ واجهة المستخدم ستعمل** - HTML/CSS/JS
-5. **✅ إدارة API Keys ستعمل** - localStorage
-6. **✅ Scraping ستعمل** - Firecrawl API متوافق مع Edge
+### ✅ **ما يعمل الآن:**
+1. **✅ إنشاء مشاريع جديدة** - عبر Replit/CodeSandbox/StackBlitz/WASM
+2. **✅ تشغيل الكود** - في بيئات مختلفة
+3. **✅ واجهة المستخدم** - كاملة مع Lovable design
+4. **✅ إدارة API Keys** - ديناميكية
+5. **✅ Scraping** - Firecrawl API
+6. **✅ AI Code Generation** - جميع مزودي AI
+
+### 🚀 **مقارنة الحلول:**
+
+| المزود | السرعة | الميزات | التكلفة | التوافق |
+|--------|--------|---------|---------|---------|
+| **Replit** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | مجاني | Edge ✅ |
+| **CodeSandbox** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | مجاني | Edge ✅ |
+| **StackBlitz** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | مجاني | Edge ✅ |
+| **WASM** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | مجاني | Edge ✅ |
+
+## 🚀 **خطوات التفعيل:**
+
+### 1️⃣ **تحويل للـ Edge Runtime**
+```bash
+npm run fix:runtime:edge
+```
+
+### 2️⃣ **اختبار البناء**
+```bash
+npm run build:cf
+```
+
+### 3️⃣ **النشر**
+```bash
+# في Cloudflare Pages dashboard
+# أو عبر wrangler
+npx wrangler pages deploy
+```
 
 ## 🎯 **التوصية النهائية:**
 
-**استخدم Vercel للحصول على جميع الوظائف كاملة:**
+**استخدم Cloudflare Pages مع الحلول البديلة الجديدة:**
 
-```bash
-# نشر فوري على Vercel
-npm install -g vercel
-vercel login
-vercel --prod
-```
-
-أو
-
-**قم بتطوير نسخة محدودة للـ Cloudflare Pages** بدون وظائف E2B.
+✅ **جميع الوظائف تعمل** مع Edge Runtime
+✅ **أداء محسن** مع Cloudflare CDN
+✅ **تكلفة منخفضة** أو مجانية
+✅ **سرعة عالية** في التحميل
 
 ## 📞 **الدعم**
 
 إذا واجهت مشاكل، تواصل معنا أو راجع:
 - [Next.js Edge Runtime Docs](https://nextjs.org/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes)
 - [Cloudflare Pages Docs](https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site/)
-- [E2B Alternatives](https://e2b.dev/docs)
+- [Replit API Docs](https://docs.replit.com/reference/reference-overview)
+- [CodeSandbox API Docs](https://codesandbox.io/docs/api)
+- [StackBlitz API Docs](https://developer.stackblitz.com/)

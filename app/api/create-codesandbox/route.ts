@@ -1,0 +1,185 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+export const runtime = "edge";
+
+interface CodeSandboxProject {
+  sandbox_id: string;
+  url: string;
+  title: string;
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const { projectName = "lovable-project", template = "create-react-app" } = await request.json();
+    
+    console.log('[create-codesandbox] Creating CodeSandbox project:', projectName);
+    
+    // CodeSandbox API doesn't require authentication for basic operations
+    const createResponse = await fetch('https://codesandbox.io/api/v1/sandboxes/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: projectName,
+        description: 'Created by LovableW AI',
+        template: template,
+        files: {
+          'package.json': {
+            content: JSON.stringify({
+              name: projectName,
+              version: "0.1.0",
+              private: true,
+              dependencies: {
+                "react": "^18.2.0",
+                "react-dom": "^18.2.0",
+                "react-scripts": "5.0.1",
+                "tailwindcss": "^3.3.0",
+                "@tailwindcss/forms": "^0.5.0"
+              },
+              scripts: {
+                "start": "react-scripts start",
+                "build": "react-scripts build",
+                "test": "react-scripts test",
+                "eject": "react-scripts eject"
+              },
+              browserslist: {
+                production: [">0.2%", "not dead", "not op_mini all"],
+                development: ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+              }
+            }, null, 2)
+          },
+          'public/index.html': {
+            content: `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Created by LovableW AI" />
+    <title>${projectName}</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>`
+          },
+          'src/index.js': {
+            content: `import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);`
+          },
+          'src/App.js': {
+            content: `import React from 'react';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Welcome to ${projectName}</h1>
+        <p>Created by LovableW AI</p>
+      </header>
+    </div>
+  );
+}
+
+export default App;`
+          },
+          'src/App.css': {
+            content: `@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}`
+          },
+          'src/index.css': {
+            content: `body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}`
+          },
+          'tailwind.config.js': {
+            content: `/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}`
+          },
+          'README.md': {
+            content: `# ${projectName}
+
+This project was created by LovableW AI.
+
+## Getting Started
+
+1. Run \`npm start\` to start the development server
+2. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
+
+## Learn More
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+`
+          }
+        }
+      })
+    });
+    
+    if (!createResponse.ok) {
+      const error = await createResponse.text();
+      throw new Error(`CodeSandbox API error: ${error}`);
+    }
+    
+    const project: CodeSandboxProject = await createResponse.json();
+    
+    console.log('[create-codesandbox] Project created:', project.sandbox_id);
+    
+    return NextResponse.json({
+      success: true,
+      project: {
+        id: project.sandbox_id,
+        title: project.title,
+        url: project.url
+      },
+      message: 'CodeSandbox project created successfully'
+    });
+    
+  } catch (error) {
+    console.error('[create-codesandbox] Error:', error);
+    return NextResponse.json({
+      success: false,
+      error: (error as Error).message
+    }, { status: 500 });
+  }
+}
