@@ -1,0 +1,16 @@
+{
+  "app": "open-lovable",
+  "version": "0.1.0",
+  "buildTime": "2025-08-22T18:22:10Z",
+  "pwa": {
+    "manifest": "manifest.json",
+    "serviceWorker": "sw.js",
+    "offlinePage": "offline.html",
+    "icons": "icons/"
+  },
+  "deployment": {
+    "target": "production",
+    "https": true,
+    "domain": "open-lovable.vercel.app"
+  }
+}

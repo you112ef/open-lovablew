@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Generator</title>
+    <style>
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h1>PWA Icons</h1>
+    <div class="icon-grid">
+        
+            <div>
+                <h3>72x72</h3>
+                <img src="./icons/icon-72x72.svg" width="72" height="72" alt="Icon 72x72">
+                <canvas id="canvas-72" width="72" height="72"></canvas>
+            </div>
+        
+            <div>
+                <h3>96x96</h3>
+                <img src="./icons/icon-96x96.svg" width="96" height="96" alt="Icon 96x96">
+                <canvas id="canvas-96" width="96" height="96"></canvas>
+            </div>
+        
+            <div>
+                <h3>128x128</h3>
+                <img src="./icons/icon-128x128.svg" width="128" height="128" alt="Icon 128x128">
+                <canvas id="canvas-128" width="128" height="128"></canvas>
+            </div>
+        
+            <div>
+                <h3>144x144</h3>
+                <img src="./icons/icon-144x144.svg" width="144" height="144" alt="Icon 144x144">
+                <canvas id="canvas-144" width="144" height="144"></canvas>
+            </div>
+        
+            <div>
+                <h3>152x152</h3>
+                <img src="./icons/icon-152x152.svg" width="152" height="152" alt="Icon 152x152">
+                <canvas id="canvas-152" width="152" height="152"></canvas>
+            </div>
+        
+            <div>
+                <h3>192x192</h3>
+                <img src="./icons/icon-192x192.svg" width="192" height="192" alt="Icon 192x192">
+                <canvas id="canvas-192" width="192" height="192"></canvas>
+            </div>
+        
+            <div>
+                <h3>384x384</h3>
+                <img src="./icons/icon-384x384.svg" width="384" height="384" alt="Icon 384x384">
+                <canvas id="canvas-384" width="384" height="384"></canvas>
+            </div>
+        
+            <div>
+                <h3>512x512</h3>
+                <img src="./icons/icon-512x512.svg" width="512" height="512" alt="Icon 512x512">
+                <canvas id="canvas-512" width="512" height="512"></canvas>
+            </div>
+        
+    </div>
+    
+    <script>
+        // Convert SVG to PNG for each size
+        
+            const img72 = new Image();
+            img72.onload = function() {
+                const canvas = document.getElementById('canvas-72');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img72, 0, 0, 72, 72);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-72x72.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img72.src = './icons/icon-72x72.svg';
+        
+            const img96 = new Image();
+            img96.onload = function() {
+                const canvas = document.getElementById('canvas-96');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img96, 0, 0, 96, 96);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-96x96.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img96.src = './icons/icon-96x96.svg';
+        
+            const img128 = new Image();
+            img128.onload = function() {
+                const canvas = document.getElementById('canvas-128');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img128, 0, 0, 128, 128);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-128x128.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img128.src = './icons/icon-128x128.svg';
+        
+            const img144 = new Image();
+            img144.onload = function() {
+                const canvas = document.getElementById('canvas-144');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img144, 0, 0, 144, 144);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-144x144.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img144.src = './icons/icon-144x144.svg';
+        
+            const img152 = new Image();
+            img152.onload = function() {
+                const canvas = document.getElementById('canvas-152');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img152, 0, 0, 152, 152);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-152x152.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img152.src = './icons/icon-152x152.svg';
+        
+            const img192 = new Image();
+            img192.onload = function() {
+                const canvas = document.getElementById('canvas-192');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img192, 0, 0, 192, 192);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-192x192.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img192.src = './icons/icon-192x192.svg';
+        
+            const img384 = new Image();
+            img384.onload = function() {
+                const canvas = document.getElementById('canvas-384');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img384, 0, 0, 384, 384);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-384x384.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img384.src = './icons/icon-384x384.svg';
+        
+            const img512 = new Image();
+            img512.onload = function() {
+                const canvas = document.getElementById('canvas-512');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img512, 0, 0, 512, 512);
+                
+                // Convert to blob and create download link
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'icon-512x512.png';
+                    a.textContent = 'Download PNG';
+                    canvas.parentNode.appendChild(a);
+                });
+            };
+            img512.src = './icons/icon-512x512.svg';
+        
+    </script>
+</body>
+</html>
