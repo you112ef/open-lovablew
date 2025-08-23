@@ -10,6 +10,8 @@ interface HeaderProps {
   onProjectNameChange: (name: string) => void;
   selectedModel: string;
   onModelChange: (model: string) => void;
+  showAPISettings: boolean;
+  onShowAPISettings: (show: boolean) => void;
 }
 
 const models = [
@@ -20,11 +22,10 @@ const models = [
   { id: 'llama', name: 'Llama', description: 'مفتوح المصدر', icon: '🦙', color: 'text-orange-400' }
 ];
 
-export default function Header({ projectName, onProjectNameChange, selectedModel, onModelChange }: HeaderProps) {
+export default function Header({ projectName, onProjectNameChange, selectedModel, onModelChange, showAPISettings, onShowAPISettings }: HeaderProps) {
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [showAPISettings, setShowAPISettings] = useState(false);
 
   const currentModel = models.find(m => m.id === selectedModel);
 
@@ -114,7 +115,7 @@ export default function Header({ projectName, onProjectNameChange, selectedModel
               <APIKeyIndicator />
               
               <button
-                onClick={() => setShowAPISettings(true)}
+                onClick={() => onShowAPISettings(true)}
                 className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
                 title="ضبط مفاتيح API"
               >
@@ -245,7 +246,7 @@ export default function Header({ projectName, onProjectNameChange, selectedModel
       {/* API Settings Modal */}
       <APISettingsModal
         isOpen={showAPISettings}
-        onClose={() => setShowAPISettings(false)}
+        onClose={() => onShowAPISettings(false)}
         onSave={() => {
           // Force refresh to reload API keys
           window.location.reload();

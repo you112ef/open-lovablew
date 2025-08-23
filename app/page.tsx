@@ -82,6 +82,8 @@ export default function LovableApp() {
         onProjectNameChange={handleProjectNameChange}
         selectedModel={selectedModel}
         onModelChange={handleModelChange}
+        showAPISettings={showAPISettings}
+        onShowAPISettings={setShowAPISettings}
       />
 
       {/* Navigation */}
@@ -126,6 +128,9 @@ export default function LovableApp() {
           </div>
         )}
       </main>
+
+      {/* Quick Setup Prompt */}
+      <QuickSetupPrompt onOpenSettings={() => setShowAPISettings(true)} />
     </div>
   );
 }
