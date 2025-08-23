@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Zap, ChevronDown, Settings, User, HelpCircle, Github, Twitter, Mail } from 'lucide-react';
+import { Zap, ChevronDown, Settings, User, HelpCircle, Github, Twitter, Mail, Key } from 'lucide-react';
+import APISettingsModal from './APISettingsModal';
+import APIKeyIndicator from './APIKeyIndicator';
 
 interface HeaderProps {
   projectName: string;
@@ -22,6 +24,7 @@ export default function Header({ projectName, onProjectNameChange, selectedModel
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [showAPISettings, setShowAPISettings] = useState(false);
 
   const currentModel = models.find(m => m.id === selectedModel);
 
@@ -107,6 +110,16 @@ export default function Header({ projectName, onProjectNameChange, selectedModel
 
             {/* Quick Actions */}
             <div className="flex items-center space-x-2">
+              {/* API Key Status */}
+              <APIKeyIndicator />
+              
+              <button
+                onClick={() => setShowAPISettings(true)}
+                className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                title="ضبط مفاتيح API"
+              >
+                <Key className="w-4 h-4" />
+              </button>
               <button
                 onClick={() => setShowHelp(!showHelp)}
                 className="p-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
@@ -228,6 +241,16 @@ export default function Header({ projectName, onProjectNameChange, selectedModel
           </div>
         </div>
       )}
+
+      {/* API Settings Modal */}
+      <APISettingsModal
+        isOpen={showAPISettings}
+        onClose={() => setShowAPISettings(false)}
+        onSave={() => {
+          // Force refresh to reload API keys
+          window.location.reload();
+        }}
+      />
     </header>
   );
 }

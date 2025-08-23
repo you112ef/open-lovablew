@@ -12,24 +12,30 @@ const requestSchema = z.object({
   prompt: z.string().min(1, 'Prompt is required'),
   model: z.string().optional().default('gpt-4'),
   language: z.string().optional().default('ar'),
+  apiKeys: z.record(z.string()).optional(),
 });
 
-// AI service configuration
-const getAIClient = (model: string) => {
+// API service configuration
+const getAIClient = (model: string, clientApiKeys?: Record<string, string>) => {
+  // Try to get API keys from request body first (from localStorage), then fallback to env vars
+  const getApiKey = (envKey: string, clientKey?: string) => {
+    return clientKey || process.env[envKey];
+  };
+
   if (model.startsWith('gpt-')) {
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = getApiKey('OPENAI_API_KEY', clientApiKeys?.OPENAI_API_KEY);
     if (!apiKey) throw new Error('OpenAI API key not configured');
     return { type: 'openai', client: new OpenAI({ apiKey }) };
   }
   
   if (model.startsWith('claude-')) {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = getApiKey('ANTHROPIC_API_KEY', clientApiKeys?.ANTHROPIC_API_KEY);
     if (!apiKey) throw new Error('Anthropic API key not configured');
     return { type: 'anthropic', client: new Anthropic({ apiKey }) };
   }
   
   if (model.startsWith('llama-') || model.startsWith('mixtral-')) {
-    const apiKey = process.env.GROQ_API_KEY;
+    const apiKey = getApiKey('GROQ_API_KEY', clientApiKeys?.GROQ_API_KEY);
     if (!apiKey) throw new Error('Groq API key not configured');
     return { type: 'groq', client: new Groq({ apiKey }) };
   }
@@ -38,8 +44,8 @@ const getAIClient = (model: string) => {
 };
 
 // Generate code using AI
-async function generateCode(prompt: string, model: string, language: string = 'ar') {
-  const { type, client } = getAIClient(model);
+async function generateCode(prompt: string, model: string, language: string = 'ar', clientApiKeys?: Record<string, string>) {
+  const { type, client } = getAIClient(model, clientApiKeys);
   
   const systemPrompt = `You are an expert web developer and AI assistant. Create a complete web application based on the user's request.
 
@@ -154,21 +160,21 @@ Focus on creating practical, working applications.`;
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { prompt, model, language } = requestSchema.parse(body);
+    const { prompt, model, language, apiKeys } = requestSchema.parse(body);
     
-    // Validate that at least one API key is configured
-    const hasOpenAI = !!process.env.OPENAI_API_KEY;
-    const hasAnthropic = !!process.env.ANTHROPIC_API_KEY;
-    const hasGroq = !!process.env.GROQ_API_KEY;
+    // Validate that at least one API key is configured (either from client or env)
+    const hasOpenAI = !!(apiKeys?.OPENAI_API_KEY || process.env.OPENAI_API_KEY);
+    const hasAnthropic = !!(apiKeys?.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY);
+    const hasGroq = !!(apiKeys?.GROQ_API_KEY || process.env.GROQ_API_KEY);
     
     if (!hasOpenAI && !hasAnthropic && !hasGroq) {
       return NextResponse.json(
-        { error: 'No AI API keys configured. Please set OPENAI_API_KEY, ANTHROPIC_API_KEY, or GROQ_API_KEY.' },
+        { error: 'No AI API keys configured. Please configure API keys in the settings or set environment variables.' },
         { status: 500 }
       );
     }
     
-    const result = await generateCode(prompt, model, language);
+    const result = await generateCode(prompt, model, language, apiKeys);
     
     return NextResponse.json({
       success: true,

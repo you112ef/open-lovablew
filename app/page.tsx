@@ -6,6 +6,7 @@ import Navigation from '../components/Navigation';
 import AIChat from '../components/AIChat';
 import CodeViewer from '../components/CodeViewer';
 import Preview from '../components/Preview';
+import QuickSetupPrompt from '../components/QuickSetupPrompt';
 
 interface GeneratedFile {
   name: string;
@@ -20,6 +21,7 @@ export default function LovableApp() {
   const [projectName, setProjectName] = useState('تطبيق Lovable الجديد');
   const [generatedFiles, setGeneratedFiles] = useState<GeneratedFile[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showAPISettings, setShowAPISettings] = useState(false);
 
   const handleFilesGenerated = (files: GeneratedFile[]) => {
     setGeneratedFiles(files);

@@ -7,6 +7,22 @@ export interface GeneratedFile {
   path: string;
 }
 
+// API Key management utilities
+const decrypt = (encryptedText: string): string => {
+  try {
+    return decodeURIComponent(atob(encryptedText));
+  } catch {
+    return '';
+  }
+};
+
+const getStoredAPIKey = (keyName: string): string => {
+  if (typeof window === 'undefined') return '';
+  
+  const encrypted = localStorage.getItem(`api_key_${keyName}`);
+  return encrypted ? decrypt(encrypted) : '';
+};
+
 export interface AIResponse {
   files: GeneratedFile[];
   message: string;
@@ -32,6 +48,18 @@ class AIService {
     const maxRetries = appConfig.api.maxRetries;
     let lastError: Error | null = null;
 
+    // Get stored API keys
+    const apiKeys: Record<string, string> = {};
+    if (typeof window !== 'undefined') {
+      const keyNames = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'GROQ_API_KEY', 'E2B_API_KEY', 'FIRECRAWL_API_KEY', 'GEMINI_API_KEY'];
+      keyNames.forEach(keyName => {
+        const storedKey = getStoredAPIKey(keyName);
+        if (storedKey) {
+          apiKeys[keyName] = storedKey;
+        }
+      });
+    }
+
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
         const response = await fetch(`${this.baseUrl}/ai`, {
@@ -43,6 +71,7 @@ class AIService {
             prompt,
             model,
             language,
+            apiKeys,
           }),
         });
 
