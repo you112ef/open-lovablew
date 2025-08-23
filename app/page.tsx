@@ -97,6 +97,7 @@ export default function LovableApp() {
             <AIChat
               onFilesGenerated={handleFilesGenerated}
               onTabChange={handleTabChange}
+              selectedModel={selectedModel}
             />
           </div>
         )}

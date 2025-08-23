@@ -1,8 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Disable static export to enable API routes
+  output: undefined,
+  
   // Enable SSR/Pages Functions on Cloudflare Pages
-  // Remove static export and allow default Next rendering
+  // Allow default Next rendering with API routes
+  
+  // Disable image optimization for Cloudflare Pages
+  images: {
+    unoptimized: true
+  },
 
   // External packages for Cloudflare Workers compatibility
   serverExternalPackages: ['@e2b/code-interpreter'],
